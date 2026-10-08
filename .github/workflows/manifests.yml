@@ -30,18 +30,21 @@ jobs:
       - name: Padrao Metacortex
         run: python3 scripts/check_padrao.py --github manifests
 
-      # Bloco 3 — varredura mantida por Seguranca & Compliance.
-      - name: Trivy config
-        # Fixado por SHA (v0.36.0): tag de action pode ser movida; commit nao.
-        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
+      # Bloco 3 — varredura mantida por Seguranca & Compliance. Mesmo comando
+      # do scripts/validate.sh, para CI e maquina local nao divergirem.
+      - name: Instalar Trivy
+        # Fixado por SHA (v0.3.1): tag de action pode ser movida; commit nao.
+        uses: aquasecurity/setup-trivy@81e514348e19b6112ce2a7e3ecbafe19c1e1f567
         with:
-          scan-type: config
-          scan-ref: manifests
-          severity: LOW,MEDIUM,HIGH,CRITICAL
-          exit-code: "1"
-          trivyignores: .trivyignore.yaml
-          trivy-config: trivy/trivy.yaml
           version: v0.74.0   # mesma versao usada na revisao do padrao
+
+      - name: Trivy config
+        run: |
+          trivy config --exit-code 1 \
+            --severity LOW,MEDIUM,HIGH,CRITICAL \
+            --config trivy/trivy.yaml \
+            --ignorefile .trivyignore.yaml \
+            manifests
 
   admissao:
     # O que analise estatica nao ve: schema estrito, validacao do apiserver e
