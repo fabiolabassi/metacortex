@@ -32,7 +32,8 @@ jobs:
 
       # Bloco 3 — varredura mantida por Seguranca & Compliance.
       - name: Trivy config
-        uses: aquasecurity/trivy-action@0.28.0
+        # Fixado por SHA (v0.36.0): tag de action pode ser movida; commit nao.
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
         with:
           scan-type: config
           scan-ref: manifests
@@ -40,6 +41,7 @@ jobs:
           exit-code: "1"
           trivyignores: .trivyignore.yaml
           trivy-config: trivy/trivy.yaml
+          version: v0.74.0   # mesma versao usada na revisao do padrao
 
   admissao:
     # O que analise estatica nao ve: schema estrito, validacao do apiserver e
