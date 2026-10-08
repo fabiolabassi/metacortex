@@ -1,0 +1,17 @@
+# Achado 4: o Pod Security barra o Pod, nao o Deployment.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-sem-securitycontext
+  namespace: lab-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app.kubernetes.io/name: lab-sem-securitycontext}
+  template:
+    metadata:
+      labels: {app.kubernetes.io/name: lab-sem-securitycontext}
+    spec:
+      containers:
+        - name: api
+          image: nginxinc/nginx-unprivileged:1.27-alpine

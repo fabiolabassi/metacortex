@@ -1,0 +1,26 @@
+# espera: 3.3
+# Tres jeitos de versionar segredo que o parser de YAML sozinho nao pega
+# todos: chave sensivel em ConfigMap, Secret com valor no Git e credencial
+# esquecida em comentario.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nyx-config
+  namespace: nyx-dev
+  labels: {app.kubernetes.io/name: nyx-config, app.kubernetes.io/instance: nyx-dev, app.kubernetes.io/part-of: nyx, app.kubernetes.io/managed-by: platform}
+  annotations: {metacortex.io/owner: time-nyx}
+data:
+  LOG_LEVEL: debug
+  DB_PASSWORD: s3nh4-do-banco           # 3.3 ConfigMap nao guarda segredo
+  # antigo: postgres://nyx:s3nh4-do-banco@pg.nyx-dev.svc:5432/nyx
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nyx-db
+  namespace: nyx-dev
+  labels: {app.kubernetes.io/name: nyx-db, app.kubernetes.io/instance: nyx-dev, app.kubernetes.io/part-of: nyx, app.kubernetes.io/managed-by: platform}
+  annotations: {metacortex.io/owner: time-nyx}
+type: Opaque
+stringData:
+  url: postgres://nyx:s3nh4-do-banco@pg.nyx-dev.svc:5432/nyx   # 3.3 base64 nao e cofre

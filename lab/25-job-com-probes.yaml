@@ -1,0 +1,19 @@
+# Achado 5: a 2.2 aplicada a batch. O apiserver aceita readiness em Job, mas
+# o Pod nunca fica atras de Service: o "ready" nao muda nada.
+apiVersion: batch/v1
+kind: Job
+metadata: {name: lab-job-probes, namespace: lab-dev}
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      securityContext: {runAsNonRoot: true, runAsUser: 10001, seccompProfile: {type: RuntimeDefault}}
+      containers:
+        - name: job
+          image: nginxinc/nginx-unprivileged:1.27-alpine
+          command: ["sh", "-c", "sleep 15"]
+          readinessProbe: {exec: {command: ["true"]}, periodSeconds: 2}
+          livenessProbe: {exec: {command: ["true"]}, periodSeconds: 5}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}

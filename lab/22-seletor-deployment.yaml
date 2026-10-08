@@ -1,0 +1,13 @@
+# Achado 3: o exemplo "errado" da 1.4, aplicado ao Deployment.
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: lab-seletor-errado, namespace: lab-dev}
+spec:
+  selector:
+    matchLabels: {app: nyx-api}
+  template:
+    metadata:
+      labels: {app: nyxapi}
+    spec:
+      containers:
+        - {name: api, image: nginxinc/nginx-unprivileged:1.27-alpine}

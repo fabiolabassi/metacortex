@@ -1,0 +1,30 @@
+# espera: 1.3
+# CronJob com os quatro rotulos no proprio objeto e no Pod, mas nao no
+# jobTemplate: o Job criado as 3h nasce sem dono, e e ele que aparece no
+# alerta de falha.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nyx-reconcile
+  namespace: nyx-dev
+  labels: {app.kubernetes.io/name: nyx-reconcile, app.kubernetes.io/instance: nyx-dev, app.kubernetes.io/part-of: nyx, app.kubernetes.io/managed-by: platform}
+  annotations: {metacortex.io/owner: time-nyx, metacortex.io/runbook: https://wiki.metacortex.io/runbooks/nyx-reconcile}
+spec:
+  schedule: "30 3 * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels: {app.kubernetes.io/name: nyx-reconcile, app.kubernetes.io/instance: nyx-dev, app.kubernetes.io/part-of: nyx, app.kubernetes.io/managed-by: platform}
+        spec:
+          restartPolicy: Never
+          serviceAccountName: nyx-reconcile
+          automountServiceAccountToken: false
+          securityContext: {runAsNonRoot: true, runAsUser: 10001, seccompProfile: {type: RuntimeDefault}}
+          containers:
+            - name: reconcile
+              image: registry.metacortex.io/nyx/worker:2.9.1
+              resources: {requests: {cpu: 250m, memory: 256Mi}, limits: {cpu: "1", memory: 512Mi}}
+              readinessProbe: {exec: {command: [test, -f, /var/run/nyx/ready]}}
+              livenessProbe: {exec: {command: [/bin/sh, -c, "test -n \"$(find /var/run/nyx/heartbeat -mmin -5)\""]}}
+              securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}

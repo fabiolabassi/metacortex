@@ -1,0 +1,21 @@
+# 2.5 — sem PDB, um drain de no pode derrubar as duas replicas juntas.
+# minAvailable: 1 com replicas: 2 deixa o drain andar de um em um. Nunca
+# minAvailable igual a replicas: isso trava a manutencao do no para sempre.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: nyx-api
+  namespace: nyx-prod
+  labels:
+    app.kubernetes.io/name: nyx-api
+    app.kubernetes.io/instance: nyx-prod
+    app.kubernetes.io/part-of: nyx
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: time-nyx
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nyx-api
+      app.kubernetes.io/instance: nyx-prod

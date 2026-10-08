@@ -1,0 +1,115 @@
+# Conciliacao noturna de faturas. Carga batch: roda, termina e sai.
+#
+# 1.3 — os quatro rotulos aparecem em tres niveis: no CronJob, no Job que ele
+# cria (jobTemplate.metadata) e no Pod (template.metadata). Faltando no
+# jobTemplate, o Job criado as 3h nao responde "quem e o dono disso?".
+#
+# 2.2 — o padrao exige as duas probes "em qualquer ambiente" e nao abre
+# excecao para batch. Aqui elas existem e cada uma faz sentido proprio:
+# liveness pega a conciliacao travada; readiness nao tira trafego de ninguem
+# (Job nao esta atras de Service) e so existe para cumprir a regra. Ver
+# docs/revisao-do-padrao.md, achado 5.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nyx-reconcile
+  namespace: nyx-prod
+  labels:
+    app.kubernetes.io/name: nyx-reconcile
+    app.kubernetes.io/instance: nyx-prod
+    app.kubernetes.io/part-of: nyx
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: time-nyx
+    metacortex.io/runbook: https://wiki.metacortex.io/runbooks/nyx-reconcile
+spec:
+  schedule: "30 3 * * *"
+  timeZone: America/Sao_Paulo
+  concurrencyPolicy: Forbid           # duas conciliacoes ao mesmo tempo duplicam lancamento
+  startingDeadlineSeconds: 1800
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nyx-reconcile
+        app.kubernetes.io/instance: nyx-prod
+        app.kubernetes.io/part-of: nyx
+        app.kubernetes.io/managed-by: platform
+      annotations:
+        metacortex.io/owner: time-nyx
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 3600
+      ttlSecondsAfterFinished: 86400
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: nyx-reconcile
+            app.kubernetes.io/instance: nyx-prod
+            app.kubernetes.io/part-of: nyx
+            app.kubernetes.io/managed-by: platform
+          annotations:
+            metacortex.io/owner: time-nyx
+        spec:
+          restartPolicy: Never
+          serviceAccountName: nyx-reconcile
+          automountServiceAccountToken: false
+          terminationGracePeriodSeconds: 60   # 2.6 grava o checkpoint antes de sair
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            runAsGroup: 10001
+            fsGroup: 10001
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: reconcile
+              image: registry.metacortex.io/nyx/worker:2.9.1
+              imagePullPolicy: IfNotPresent
+              args: ["reconcile", "--since=24h"]
+              envFrom:
+                - configMapRef:
+                    name: nyx-config
+              env:
+                - name: DATABASE_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: nyx-db
+                      key: url
+              resources:
+                requests:
+                  cpu: 250m
+                  memory: 256Mi
+                limits:
+                  cpu: "1"
+                  memory: 512Mi
+              readinessProbe:
+                exec:
+                  command: ["/bin/sh", "-c", "test -f /var/run/nyx/ready"]
+                periodSeconds: 30
+              livenessProbe:
+                exec:
+                  command: ["/bin/sh", "-c", "test -n \"$(find /var/run/nyx/heartbeat -mmin -5)\""]
+                initialDelaySeconds: 60
+                periodSeconds: 60
+                failureThreshold: 3
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                privileged: false
+                capabilities:
+                  drop: ["ALL"]
+              volumeMounts:
+                - name: tmp
+                  mountPath: /tmp
+                - name: run
+                  mountPath: /var/run/nyx
+          volumes:
+            - name: tmp
+              emptyDir:
+                sizeLimit: 256Mi
+            - name: run
+              emptyDir:
+                medium: Memory
+                sizeLimit: 1Mi

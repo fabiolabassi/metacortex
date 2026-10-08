@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nyx-api                                   # 1.1 kebab-case
+  namespace: nyx-prod                             # 1.2 <cliente>-<ambiente>
+  labels:                                         # 1.3 os quatro rotulos
+    app.kubernetes.io/name: nyx-api
+    app.kubernetes.io/instance: nyx-prod
+    app.kubernetes.io/part-of: nyx
+    app.kubernetes.io/managed-by: platform
+  annotations:                                    # 1.5 dono e runbook
+    metacortex.io/owner: time-nyx
+    metacortex.io/runbook: https://wiki.metacortex.io/runbooks/nyx-api
+spec:
+  replicas: 2                                     # 2.3 prod nunca com replica unica
+  revisionHistoryLimit: 5                         # 4.3 historico para rollback
+  strategy:                                       # 2.4 capacidade nao cai no rollout
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    # 1.4 — so rotulos imutaveis no seletor: matchLabels nao pode ser alterado
+    # depois de criado, e managed-by muda no dia da migracao para o Argo CD.
+    matchLabels:
+      app.kubernetes.io/name: nyx-api
+      app.kubernetes.io/instance: nyx-prod
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nyx-api
+        app.kubernetes.io/instance: nyx-prod
+        app.kubernetes.io/part-of: nyx
+        app.kubernetes.io/managed-by: platform
+      annotations:
+        metacortex.io/owner: time-nyx
+    spec:
+      serviceAccountName: nyx-api                 # 3.5 SA dedicada
+      automountServiceAccountToken: false         # 3.4 nao fala com o apiserver
+      terminationGracePeriodSeconds: 30           # 2.6 API HTTP drena em segundos
+      securityContext:
+        # 3.2 nivel de Pod: so os campos que existem em PodSecurityContext.
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      topologySpreadConstraints:
+        # 2.3/2.5 — duas replicas no mesmo no nao sobrevivem a um drain.
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: nyx-api
+              app.kubernetes.io/instance: nyx-prod
+      containers:
+        - name: api                               # 1.6 nome do componente
+          image: registry.metacortex.io/nyx/api:2.9.1   # 3.1 tag imutavel / 3.7 registry interno
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080                 # 4.5 porta real do processo (targetPort)
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: nyx-config
+          env:
+            - name: DATABASE_URL                  # 3.3 sempre por referencia
+              valueFrom:
+                secretKeyRef:
+                  name: nyx-db
+                  key: url
+          resources:                              # 2.1
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi                       # ~2x o consumo observado em regime
+          startupProbe:                           # 4.8 carencia de ate 60s na partida
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 5
+            failureThreshold: 12
+          readinessProbe:                         # 2.2 "posso receber trafego agora?"
+            httpGet:
+              path: /readyz                       # checa banco: falhou, sai do Service
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+          livenessProbe:                          # 2.2 "ainda estou vivo?"
+            httpGet:
+              path: /healthz                      # so o processo; nao toca no banco
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          lifecycle:
+            # 2.6 — da tempo de o Pod sair dos Endpoints antes do SIGTERM,
+            # para nao derrubar requisicao em voo durante o rollout.
+            preStop:
+              sleep:
+                seconds: 5
+          securityContext:
+            # 3.2 nivel de container: campos que so existem em SecurityContext.
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:                           # 3.2 o que escreve vai para emptyDir
+            - name: tmp
+              mountPath: /tmp
+            - name: cache
+              mountPath: /var/cache/nyx-api
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi
+        - name: cache
+          emptyDir:
+            sizeLimit: 256Mi

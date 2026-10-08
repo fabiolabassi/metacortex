@@ -1,0 +1,19 @@
+# 3.3 / 4.7 — ConfigMap guarda so o que nao e sensivel. Credenciais e strings
+# de conexao vivem em Secret criado fora do Git (ver README, secao Segredos).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nyx-config
+  namespace: nyx-dev
+  labels:
+    app.kubernetes.io/name: nyx-config
+    app.kubernetes.io/instance: nyx-dev
+    app.kubernetes.io/part-of: nyx
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: time-nyx
+data:
+  HTTP_PORT: "8080"
+  LOG_LEVEL: debug
+  LOG_FORMAT: json
+  TMPDIR: /tmp

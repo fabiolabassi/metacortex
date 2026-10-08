@@ -1,0 +1,44 @@
+# espera: 2.3 2.4
+# Passa em dev, nao passa em prod: replica unica e Recreate derrubam o
+# servico a cada deploy. O PDB existe, mas com minAvailable igual ao numero de
+# replicas — trava o drain do no (aviso 2.5).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nyx-api
+  namespace: nyx-prod
+  labels: {app.kubernetes.io/name: nyx-api, app.kubernetes.io/instance: nyx-prod, app.kubernetes.io/part-of: nyx, app.kubernetes.io/managed-by: platform}
+  annotations: {metacortex.io/owner: time-nyx, metacortex.io/runbook: https://wiki.metacortex.io/runbooks/nyx-api}
+spec:
+  replicas: 1                           # 2.3
+  strategy:
+    type: Recreate                      # 2.4
+  selector:
+    matchLabels: {app.kubernetes.io/name: nyx-api, app.kubernetes.io/instance: nyx-prod}
+  template:
+    metadata:
+      labels: {app.kubernetes.io/name: nyx-api, app.kubernetes.io/instance: nyx-prod, app.kubernetes.io/part-of: nyx, app.kubernetes.io/managed-by: platform}
+    spec:
+      serviceAccountName: nyx-api
+      automountServiceAccountToken: false
+      securityContext: {runAsNonRoot: true, runAsUser: 10001, seccompProfile: {type: RuntimeDefault}}
+      containers:
+        - name: api
+          image: registry.metacortex.io/nyx/api:2.9.1
+          ports: [{name: http, containerPort: 8080}]
+          resources: {requests: {cpu: 100m, memory: 256Mi}, limits: {cpu: 500m, memory: 512Mi}}
+          readinessProbe: {httpGet: {path: /readyz, port: http}}
+          livenessProbe: {httpGet: {path: /healthz, port: http}}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: nyx-api
+  namespace: nyx-prod
+  labels: {app.kubernetes.io/name: nyx-api, app.kubernetes.io/instance: nyx-prod, app.kubernetes.io/part-of: nyx, app.kubernetes.io/managed-by: platform}
+  annotations: {metacortex.io/owner: time-nyx}
+spec:
+  minAvailable: 1                       # 2.5 = replicas: nenhum pod pode sair
+  selector:
+    matchLabels: {app.kubernetes.io/name: nyx-api, app.kubernetes.io/instance: nyx-prod}

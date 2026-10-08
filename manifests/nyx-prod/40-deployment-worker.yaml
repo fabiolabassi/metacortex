@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nyx-worker
+  namespace: nyx-prod
+  labels:
+    app.kubernetes.io/name: nyx-worker
+    app.kubernetes.io/instance: nyx-prod
+    app.kubernetes.io/part-of: nyx
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: time-nyx
+    metacortex.io/runbook: https://wiki.metacortex.io/runbooks/nyx-worker
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nyx-worker
+      app.kubernetes.io/instance: nyx-prod
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nyx-worker
+        app.kubernetes.io/instance: nyx-prod
+        app.kubernetes.io/part-of: nyx
+        app.kubernetes.io/managed-by: platform
+      annotations:
+        metacortex.io/owner: time-nyx
+    spec:
+      serviceAccountName: nyx-worker
+      automountServiceAccountToken: false
+      # 2.6 — mensagem longa leva ate ~90s. Com o padrao de 30s o kubelet
+      # mataria o processo no meio. O worker trata SIGTERM: para de consumir,
+      # termina a mensagem em curso, confirma na fila e sai.
+      terminationGracePeriodSeconds: 120
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: nyx-worker
+              app.kubernetes.io/instance: nyx-prod
+      containers:
+        - name: worker                            # 1.6
+          image: registry.metacortex.io/nyx/worker:2.9.1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: nyx-config
+          env:
+            - name: QUEUE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: nyx-queue
+                  key: url
+          resources:
+            requests:
+              cpu: 200m
+              memory: 384Mi
+            limits:
+              cpu: "1"
+              memory: 768Mi
+          # 2.2 — o worker nao expoe HTTP. As probes leem arquivos que o
+          # proprio worker mantem, e cada uma responde uma pergunta diferente:
+          #   ready     -> criado depois de conectar na fila; apagado se a
+          #                conexao cai (fila lenta tira o pod de circulacao,
+          #                nao o reinicia)
+          #   heartbeat -> tocado a cada volta do loop de consumo; se parou de
+          #                ser tocado ha 3 min, o loop travou e reiniciar resolve
+          readinessProbe:
+            exec:
+              command: ["/bin/sh", "-c", "test -f /var/run/nyx/ready"]
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          livenessProbe:
+            exec:
+              command: ["/bin/sh", "-c", "test -n \"$(find /var/run/nyx/heartbeat -mmin -3)\""]
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: run
+              mountPath: /var/run/nyx
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 256Mi
+        - name: run
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Mi

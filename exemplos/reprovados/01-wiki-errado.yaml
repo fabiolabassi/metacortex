@@ -1,0 +1,34 @@
+# espera: 1.1 1.2 1.3 1.4 2.1 2.2 3.1 3.2 3.3 3.4 3.6 3.7
+# ANTI-PADRAO PROPOSITAL — nao aplique.
+# Junta num so Deployment os exemplos "errado" do wiki e as proibicoes do
+# Bloco 3. Cada violacao vem anotada com a regra que deveria barra-la.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: NyxAPI                          # 1.1 camelCase
+  namespace: nyx                        # 1.2 sem -<ambiente>
+  labels:
+    app: nyxapi                         # 1.3 so o rotulo curto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nyx-api                      # 1.4 um hifen de diferenca do pod
+  template:
+    metadata:
+      labels:
+        app: nyxapi                     # 1.3 template sem os quatro rotulos
+    spec:
+      hostNetwork: true                 # 3.6
+      hostPID: true                     # 3.6
+      containers:
+        - name: app                     # 1.6 nome generico (aviso)
+          image: docker.io/nyx/api:latest   # 3.1 latest / 3.7 registry publico
+          env:
+            - name: DATABASE_URL        # 3.3 segredo em texto puro
+              value: "postgres://nyx:s3nh4-do-banco@pg.nyx-prod.svc:5432/nyx"
+          securityContext:
+            privileged: true            # 3.6
+            runAsUser: 0                # 3.2 root
+          # 2.1 sem resources | 2.2 sem probes
+      # 3.4 sem automountServiceAccountToken | 3.5 ServiceAccount default (aviso)

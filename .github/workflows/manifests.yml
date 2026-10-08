@@ -1,0 +1,58 @@
+name: manifests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  padrao:
+    name: Padrao de Manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar PyYAML
+        run: pip install --quiet pyyaml==6.0.2
+
+      # Prova que o verificador continua pegando cada anti-padrao, e so ele.
+      - name: Testes do verificador
+        run: python3 -m unittest discover -s tests -v
+
+      # Blocos 1, 2 e 3 — inclusive o que o Trivy nao conhece.
+      - name: Padrao Metacortex
+        run: python3 scripts/check_padrao.py --github manifests
+
+      # Bloco 3 — varredura mantida por Seguranca & Compliance.
+      - name: Trivy config
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: config
+          scan-ref: manifests
+          severity: LOW,MEDIUM,HIGH,CRITICAL
+          exit-code: "1"
+          trivyignores: .trivyignore.yaml
+          trivy-config: trivy/trivy.yaml
+
+  admissao:
+    # O que analise estatica nao ve: schema estrito, validacao do apiserver e
+    # Pod Security. Sobe um cluster kind e faz dry-run do lado do servidor.
+    name: Admissao em cluster (kind)
+    runs-on: ubuntu-latest
+    needs: padrao
+    steps:
+      - uses: actions/checkout@v4
+      - uses: helm/kind-action@v1
+        with:
+          cluster_name: metacortex-ci
+      - name: Namespaces
+        run: for ns in manifests/*/00-namespace.yaml; do kubectl apply -f "$ns"; done
+      - name: Dry-run do lado do servidor
+        run: kubectl apply --dry-run=server -R -f manifests/

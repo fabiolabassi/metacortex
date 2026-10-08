@@ -1,0 +1,13 @@
+# Exclusoes do scan de configuracao. Cada entrada leva justificativa e escopo
+# minimo (id + caminho) — a mesma exigencia que o padrao faz para excecao em PR.
+misconfigurations:
+  - id: KSV-01010
+    paths:
+      - "*/20-configmap.yaml"
+    statement: >-
+      Falso positivo verificado no codigo da regra
+      (configmap_with_sensitive.rego): o padrao de "passaporte"
+      ^[A-Z0-9<]{3,20}$ casa com qualquer valor de 3 a 20 digitos, entao
+      HTTP_PORT: "8080" e marcado como dado sensivel. O ConfigMap so tem porta,
+      nivel/formato de log e caminhos. Segredo esta em Secret referenciado
+      (regra 3.3), e scripts/check_padrao.py continua varrendo este arquivo.

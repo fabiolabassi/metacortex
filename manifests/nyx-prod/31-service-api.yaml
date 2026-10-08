@@ -1,0 +1,26 @@
+# 4.4/4.5 — ClusterIP para trafego interno. O Service publica 80 (port) e
+# encaminha para a porta nomeada "http" do container, 8080 (targetPort).
+# Usar o nome em vez do numero deixa a porta do container mudar sem tocar aqui.
+apiVersion: v1
+kind: Service
+metadata:
+  name: nyx-api
+  namespace: nyx-prod
+  labels:
+    app.kubernetes.io/name: nyx-api
+    app.kubernetes.io/instance: nyx-prod
+    app.kubernetes.io/part-of: nyx
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: time-nyx
+spec:
+  type: ClusterIP
+  selector:
+    # 1.4 — mesmo texto do matchLabels do Deployment e dos rotulos do Pod.
+    app.kubernetes.io/name: nyx-api
+    app.kubernetes.io/instance: nyx-prod
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
