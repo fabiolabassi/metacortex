@@ -25,7 +25,7 @@ O repositório tem quatro entregas:
 | `scripts/validate.sh` | Roda localmente o mesmo que a CI |
 | `exemplos/reprovados/` | Sete anti-padrões. A 1ª linha de cada um diz em que regras **deve** reprovar |
 | `tests/` | Garante que cada anti-padrão reprova exatamente no que declara, e que `manifests/` passa limpo |
-| `trivy/` | Configuração do Trivy: `registry.metacortex.io` como registry confiável |
+| `.trivy/` | Configuração do Trivy: `registry.metacortex.io` como registry confiável |
 | `.trivyignore.yaml` | Um único falso positivo ignorado, com motivo e escopo |
 | `lab/` | Laboratório em kind que reproduz os achados da revisão |
 | `docs/conformidade.md` | Regra → arquivo → quem verifica |

@@ -174,13 +174,13 @@ nasce sem dono (`exemplos/reprovados/07-cronjob-rotulos.yaml`).
 
 O Bloco 3 diz que a varredura "não substitui esta página". Os números abaixo
 mostram o tamanho dessa lacuna. Comandos:
-`trivy config --config trivy/trivy.yaml exemplos/reprovados/<arquivo>`.
+`trivy config --config .trivy/trivy.yaml exemplos/reprovados/<arquivo>`.
 
 **6a. A 3.7 gera achado no scan de Segurança.** Toda imagem do parque cai em
 `KSV-0125 (MEDIUM) ... uses an image from an untrusted registry`. A regra lê
 uma lista configurável, `data.ksv0125.trusted_registries`, que vem do código
 da própria regra (`uses_untrusted_registry.rego`). Aqui ela é configurada em
-[`trivy/data/registries.yaml`](../trivy/data/registries.yaml). **Não** foi
+[`.trivy/data/registries.yaml`](../.trivy/data/registries.yaml). **Não** foi
 ignorada no `.trivyignore`, porque ignorar desligaria a checagem também para
 imagens de fora.
 

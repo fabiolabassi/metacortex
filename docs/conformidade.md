@@ -56,7 +56,7 @@ que checa banco derrubam a aplicação quando o banco fica lento. Aqui:
 | 3.4 automount false | no Pod **e** na ServiceAccount | auto | 01 |
 | 3.5 SA dedicada (rec.) | `nyx-api`, `nyx-worker`, `nyx-reconcile`, sem RBAC | auto (aviso; também SA compartilhada) | 01 |
 | 3.6 host*/privileged | ausentes; Pod Security `restricted` recusa | auto + trivy + cluster | 01 |
-| 3.7 registry interno | `registry.metacortex.io/nyx/...` | auto + trivy (com `trivy/data`) | 01 |
+| 3.7 registry interno | `registry.metacortex.io/nyx/...` | auto + trivy (com `.trivy/data`) | 01 |
 
 `readOnlyRootFilesystem` exige caminho gravável declarado. `api` monta
 `emptyDir` em `/tmp` e `/var/cache/nyx-api`. `worker` e `reconcile` montam

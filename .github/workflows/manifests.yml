@@ -42,7 +42,7 @@ jobs:
         run: |
           trivy config --exit-code 1 \
             --severity LOW,MEDIUM,HIGH,CRITICAL \
-            --config trivy/trivy.yaml \
+            --config .trivy/trivy.yaml \
             --ignorefile .trivyignore.yaml \
             manifests
 

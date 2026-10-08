@@ -1,0 +1,6 @@
+# Configuracao do Trivy usada pela CI (trivy-action le via trivy-config).
+# Equivale a --config-data .trivy/data: entrega a lista de registries
+# confiaveis para a regra KSV-0125 (ver .trivy/data/registries.yaml).
+rego:
+  data:
+    - .trivy/data

@@ -17,7 +17,7 @@ etapa "3/4 varredura de configuracao (Trivy, todas as severidades)"
 if command -v trivy >/dev/null; then
   trivy config --quiet --exit-code 1 \
     --severity LOW,MEDIUM,HIGH,CRITICAL \
-    --config trivy/trivy.yaml \
+    --config .trivy/trivy.yaml \
     --ignorefile .trivyignore.yaml \
     manifests || falhou=1
 else
