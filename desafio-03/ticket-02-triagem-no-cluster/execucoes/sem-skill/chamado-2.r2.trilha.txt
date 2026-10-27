@@ -1,0 +1,14 @@
+sessao:      sem-skill/chamado-2.r2.jsonl
+modelo:      claude-opus-5-5
+skills:      nenhuma
+tempo:       25.2s
+turnos:      7
+tokens:      entrada 82765 (cache lido 71687), saida 2360
+custo:       US$ 0.1501
+ferramentas: 6 chamadas (4 MCP)
+  - ToolSearch                         {"query": "select:mcp__kubernetes__kubectl_get,mcp__kubernetes__kubectl_describe,mcp__kubernetes__kubectl_logs", "max_results": 3}
+  - mcp__kubernetes__kubectl_get       {"resourceType": "all", "namespace": "orion-stg", "output": "wide"}
+  - mcp__kubernetes__kubectl_get       {"resourceType": "events", "namespace": "orion-stg", "output": "wide"}
+  - mcp__kubernetes__kubectl_get       {"resourceType": "deployment", "name": "orion-web", "namespace": "orion-stg", "output": "yaml"}
+  - mcp__kubernetes__kubectl_get       {"resourceType": "replicasets", "namespace": "orion-stg", "labelSelector": "app=orion-web", "output": "wide"}
+  - Grep                               {"pattern": "orion|v1\\.14|fake-shop:", "output_mode": "content", "-i": true, "head_limit": 40}

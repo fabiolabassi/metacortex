@@ -8,6 +8,12 @@ on:
 permissions:
   contents: read
 
+# Desde a reorganizacao em desafio-03/, o trabalho original do padrao vive em
+# ticket-01-padrao-de-manifests/trabalho-anterior e a skill em .../skill.
+defaults:
+  run:
+    working-directory: desafio-03/ticket-01-padrao-de-manifests/trabalho-anterior
+
 jobs:
   padrao:
     name: Padrao de Manifests
@@ -25,6 +31,7 @@ jobs:
       # Prova que o verificador continua pegando cada anti-padrao, e so ele.
       - name: Testes do verificador
         run: python3 -m unittest discover -s tests -v
+
 
       # Blocos 1, 2 e 3 — inclusive o que o Trivy nao conhece.
       - name: Padrao Metacortex
@@ -45,6 +52,11 @@ jobs:
             --config .trivy/trivy.yaml \
             --ignorefile .trivyignore.yaml \
             manifests
+
+      # Mesmo criterio para o script empacotado na skill (precisa do Trivy).
+      - name: Testes do script da skill
+        working-directory: desafio-03/ticket-01-padrao-de-manifests
+        run: python3 -m unittest discover -s tests -v
 
   admissao:
     # O que analise estatica nao ve: schema estrito, validacao do apiserver e

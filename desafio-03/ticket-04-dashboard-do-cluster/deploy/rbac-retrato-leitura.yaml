@@ -1,0 +1,31 @@
+# Papel de leitura do retrato: so get/list/watch, so nos recursos que a tela
+# mostra. Rodar o retrato com um kubeconfig desta identidade faz o apiserver
+# recusar qualquer escrita, independentemente do codigo (TRD §5, item 3).
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: retrato-leitura
+rules:
+  - apiGroups: [""]
+    resources: [namespaces, pods, services, events]
+    verbs: [get, list, watch]
+  - apiGroups: [apps]
+    resources: [deployments]
+    verbs: [get, list, watch]
+  - apiGroups: [discovery.k8s.io]
+    resources: [endpointslices]
+    verbs: [get, list, watch]
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: retrato-leitura
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: retrato-leitura
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: retrato-leitura}
+subjects:
+  - {kind: ServiceAccount, name: retrato-leitura, namespace: kube-system}

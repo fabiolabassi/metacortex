@@ -1,0 +1,37 @@
+# Identidades de TESTE para o cenario "permissao negada para um tipo de recurso"
+# (o caso do platform-ro do enunciado).
+#   retrato-restrito : le namespaces, pods, services, deployments; NAO le events nem endpointslices
+#   retrato-sem-ns   : igual, e tambem NAO lista namespaces
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: {name: retrato-restrito}
+rules:
+  - {apiGroups: [""], resources: [namespaces, pods, services], verbs: [get, list, watch]}
+  - {apiGroups: [apps], resources: [deployments], verbs: [get, list, watch]}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: {name: retrato-sem-ns}
+rules:
+  - {apiGroups: [""], resources: [pods, services], verbs: [get, list, watch]}
+  - {apiGroups: [apps], resources: [deployments], verbs: [get, list, watch]}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: retrato-restrito, namespace: kube-system}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: retrato-sem-ns, namespace: kube-system}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata: {name: retrato-restrito}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: retrato-restrito}
+subjects: [{kind: ServiceAccount, name: retrato-restrito, namespace: kube-system}]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata: {name: retrato-sem-ns}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: retrato-sem-ns}
+subjects: [{kind: ServiceAccount, name: retrato-sem-ns, namespace: kube-system}]

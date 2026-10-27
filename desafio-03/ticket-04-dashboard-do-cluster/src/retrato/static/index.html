@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retrato do cluster</title>
+<style>
+  :root {
+    --fundo: #f6f7f9; --painel: #ffffff; --texto: #1d232b; --suave: #5f6b7a; --borda: #dde2e8;
+    --ruim: #b42318; --ruim-fundo: #fdecea; --aviso: #8a5a00; --aviso-fundo: #fff4d6;
+    --bom: #1a7f37; --acento: #2457c5; --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fundo: #0f1318; --painel: #171c23; --texto: #e6e9ee; --suave: #95a1b0; --borda: #2a313b;
+      --ruim: #ff8a80; --ruim-fundo: #3a1714; --aviso: #ffd27a; --aviso-fundo: #3a2c0c;
+      --bom: #6fd38a; --acento: #8fb2ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--fundo); color: var(--texto); }
+  header { position: sticky; top: 0; z-index: 2; background: var(--painel); border-bottom: 1px solid var(--borda);
+           padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+  header h1 { font-size: 16px; margin: 0; letter-spacing: .2px; }
+  .ctx { font-family: var(--mono); font-size: 12px; color: var(--suave); }
+  .ctx b { color: var(--texto); font-weight: 600; }
+  .leitura { font-size: 11px; border: 1px solid var(--borda); border-radius: 999px; padding: 1px 8px; color: var(--suave); }
+  .controles { display: flex; gap: 8px; align-items: center; margin-left: auto; flex-wrap: wrap; }
+  select, input, button { font: inherit; color: var(--texto); background: var(--fundo); border: 1px solid var(--borda);
+                          border-radius: 6px; padding: 5px 8px; }
+  button { cursor: pointer; }
+  button:hover { border-color: var(--acento); }
+  .estado { font-size: 12px; color: var(--suave); min-width: 120px; }
+  main { padding: 14px 16px 40px; display: grid; gap: 14px; max-width: 1500px; margin: 0 auto; }
+  .faixa { border-radius: 8px; padding: 10px 14px; background: var(--ruim-fundo); color: var(--ruim); border: 1px solid currentColor; }
+  .faixa.aviso { background: var(--aviso-fundo); color: var(--aviso); }
+  section { background: var(--painel); border: 1px solid var(--borda); border-radius: 10px; overflow: hidden; }
+  section h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .6px; margin: 0; padding: 10px 14px;
+               border-bottom: 1px solid var(--borda); display: flex; gap: 10px; align-items: baseline; }
+  section h2 .resumo { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--suave); font-size: 12px; }
+  .rolagem { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 14px; border-bottom: 1px solid var(--borda); vertical-align: top; }
+  th { font-size: 12px; color: var(--suave); font-weight: 500; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  td.mono { font-family: var(--mono); font-size: 12.5px; }
+  tr.falha td:first-child { box-shadow: inset 3px 0 0 var(--ruim); }
+  .ruim { color: var(--ruim); font-weight: 600; }
+  .bom { color: var(--bom); }
+  .sub { display: block; color: var(--suave); font-size: 12px; font-weight: 400; }
+  .marca { display: inline-block; margin-left: 6px; font-size: 11px; padding: 0 6px; border-radius: 999px;
+           background: var(--aviso-fundo); color: var(--aviso); white-space: nowrap; }
+  .vazio, .erro-secao { padding: 12px 14px; color: var(--suave); }
+  .erro-secao { color: var(--ruim); }
+  .grade { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 1000px) { .grade { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Retrato</h1>
+  <span class="ctx" id="ctx">carregando contexto…</span>
+  <span class="leitura" title="Só GET no servidor; só list_* no código">somente leitura</span>
+  <div class="controles">
+    <label>namespace
+      <select id="ns" aria-label="namespace"></select>
+    </label>
+    <input id="ns-livre" placeholder="digite o namespace" hidden aria-label="namespace digitado">
+    <input id="busca" type="search" placeholder="buscar por nome" aria-label="buscar por nome">
+    <button id="atualizar" type="button">atualizar agora</button>
+    <span class="estado" id="estado"></span>
+  </div>
+</header>
+<main>
+  <div id="faixa-ns"></div>
+  <div id="faixas"></div>
+  <div class="grade">
+    <section id="s-pods"><h2>Pods <span class="resumo"></span></h2><div class="corpo"></div></section>
+    <section id="s-deployments"><h2>Deployments <span class="resumo"></span></h2><div class="corpo"></div></section>
+  </div>
+  <section id="s-services"><h2>Services <span class="resumo"></span></h2><div class="corpo"></div></section>
+  <section id="s-eventos"><h2>Eventos recentes <span class="resumo"></span></h2><div class="corpo"></div></section>
+</main>
+<script>
+"use strict";
+const $ = (s) => document.querySelector(s);
+const estado = { intervalo: 10, ns: null, ultimo: null, timer: null, nsLivre: false };
+const PRONTO_SEM_PROBE = "pronto = processo de pé";
+
+function el(tag, attrs = {}, ...filhos) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") e.className = v; else if (k === "title") e.title = v; else e.setAttribute(k, v);
+  }
+  for (const f of filhos) if (f !== null && f !== undefined) e.append(f instanceof Node ? f : String(f));
+  return e;
+}
+
+async function pega(url) {
+  const r = await fetch(url, { cache: "no-store" });
+  return r.json();
+}
+
+function faixa(texto, aviso = false, onde = "#faixas") {
+  $(onde).append(el("div", { class: "faixa" + (aviso ? " aviso" : ""), role: "alert" }, texto));
+}
+
+function celula(texto, classe, sub) {
+  const td = el("td", classe ? { class: classe } : {}, texto ?? "—");
+  if (sub) td.append(el("span", { class: "sub" }, sub));
+  return td;
+}
+
+function tabela(colunas, linhas) {
+  const t = el("table");
+  t.append(el("thead", {}, el("tr", {}, ...colunas.map((c) => el("th", {}, c)))));
+  const tb = el("tbody");
+  linhas.forEach((l) => tb.append(l));
+  t.append(tb);
+  return el("div", { class: "rolagem" }, t);
+}
+
+function pinta(id, secao, montar, resumo) {
+  const s = $(id), corpo = s.querySelector(".corpo");
+  corpo.replaceChildren();
+  s.querySelector(".resumo").textContent = "";
+  if (secao.erro) { corpo.append(el("div", { class: "erro-secao" }, secao.erro.mensagem)); return; }
+  const termo = $("#busca").value.trim().toLowerCase();
+  const itens = secao.itens.filter((i) => !termo || (i.nome || i.objeto || "").toLowerCase().includes(termo));
+  s.querySelector(".resumo").textContent = resumo(secao.itens, itens.length);
+  if (!itens.length) { corpo.append(el("div", { class: "vazio" }, termo ? "nada com esse nome" : "nenhum objeto")); return; }
+  corpo.append(montar(itens));
+}
+
+function pods(itens) {
+  return tabela(["nome", "estado", "prontos", "reinícios", "último término", "idade"], itens.map((p) => {
+    const nome = celula(p.nome, "mono");
+    if (p.sem_readiness && !p.falha) nome.append(el("span", { class: "marca", title: "nenhum container tem readinessProbe: o Kubernetes marca pronto assim que o processo sobe" }, PRONTO_SEM_PROBE));
+    return el("tr", p.falha ? { class: "falha" } : {}, nome,
+      celula(p.estado, p.falha ? "ruim" : (p.estado === "Running" ? "bom" : ""), p.motivo),
+      celula(p.prontos, "mono"), celula(p.reinicios, p.reinicios ? "ruim mono" : "mono"),
+      celula(p.ultimo_termino, p.ultimo_termino && p.ultimo_termino.includes("OOM") ? "ruim" : ""),
+      celula(p.idade));
+  }));
+}
+
+function deployments(itens) {
+  return tabela(["nome", "prontas / desejadas", "atualizadas", "condição", "imagem"], itens.map((d) => {
+    const nome = celula(d.nome, "mono");
+    if (d.sem_readiness) nome.append(el("span", { class: "marca", title: "sem readinessProbe: 'pronta' não diz nada sobre saúde" }, PRONTO_SEM_PROBE));
+    return el("tr", d.falha ? { class: "falha" } : {}, nome,
+      celula(d.prontas + " / " + d.desejadas, d.falha ? "ruim mono" : "bom mono"),
+      celula(d.atualizadas, "mono"), celula(d.condicao), celula(d.imagens.join(", "), "mono"));
+  }));
+}
+
+function services(itens) {
+  return tabela(["nome", "tipo", "portas", "endpoint"], itens.map((s) =>
+    el("tr", s.falha ? { class: "falha" } : {}, celula(s.nome, "mono"), celula(s.tipo),
+      celula(s.portas.join(", "), "mono"),
+      celula(s.endpoint, s.falha ? "ruim" : (s.endpoint.includes("prontos") ? "bom" : ""), s.dica))));
+}
+
+function eventos(itens) {
+  return tabela(["quando", "tipo", "motivo", "objeto", "mensagem", "×"], itens.map((e) =>
+    el("tr", e.falha ? { class: "falha" } : {}, celula(e.idade), celula(e.tipo, e.falha ? "ruim" : ""),
+      celula(e.motivo), celula(e.objeto, "mono"), celula(e.mensagem), celula(e.contagem, "mono"))));
+}
+
+const conta = (rotulo, f) => (todos, vis) => {
+  const ruins = todos.filter(f).length;
+  return `${todos.length} ${rotulo}` + (ruins ? ` · ${ruins} com problema` : "") + (vis !== todos.length ? ` · ${vis} visíveis` : "");
+};
+
+function desenha(r) {
+  $("#faixas").replaceChildren();
+  const secoes = [r.pods, r.deployments, r.services, r.eventos];
+  const erros = secoes.map((s) => s.erro && s.erro.tipo);
+  // Mesmo erro de ambiente em todas as secoes: uma faixa so (TRD §3).
+  const global = ["cluster_inacessivel", "credencial", "kubeconfig", "nao_encontrado"].find((t) => erros.every((e) => e === t));
+  if (global) faixa(secoes[0].erro.mensagem);
+  else {
+    // Recursos negados: secoes inteiras e tambem os EndpointSlices, que chegam dentro das linhas de Service.
+    const negados = new Set(secoes.filter((s) => s.erro && s.erro.tipo === "sem_permissao")
+      .map((s) => s.erro.mensagem.replace(/^Sem permissão para listar (\S+).*$/, "$1")));
+    for (const sv of (r.services.itens || [])) if (sv.erro_endpoint && sv.erro_endpoint.tipo === "sem_permissao") negados.add("endpointslices");
+    if (negados.size) faixa(`Leitura parcial: sua credencial não pode listar ${[...negados].join(", ")} neste namespace. O resto da tela está atualizado.`, true);
+  }
+  pinta("#s-pods", r.pods, pods, conta("pods", (p) => p.falha));
+  pinta("#s-deployments", r.deployments, deployments, conta("deployments", (d) => d.falha));
+  pinta("#s-services", r.services, services, conta("services", (s) => s.falha));
+  pinta("#s-eventos", r.eventos, eventos, conta("eventos", (e) => e.falha));
+  estado.ultimo = r;
+}
+
+async function atualiza() {
+  const ns = estado.nsLivre ? $("#ns-livre").value.trim() : $("#ns").value;
+  if (!ns) return;
+  $("#estado").textContent = "atualizando…";
+  try {
+    const r = await pega("/api/retrato/" + encodeURIComponent(ns));
+    if (r.erro) { $("#faixas").replaceChildren(); faixa(r.erro.mensagem); }
+    else desenha(r);
+    $("#estado").textContent = "atualizado " + new Date().toLocaleTimeString("pt-BR");
+  } catch (e) {
+    $("#faixas").replaceChildren();
+    faixa("O processo do retrato não respondeu. Ele ainda está rodando no terminal?");
+    $("#estado").textContent = "sem resposta";
+  }
+}
+
+async function carregaNamespaces(padrao) {
+  const r = await pega("/api/namespaces");
+  const sel = $("#ns");
+  sel.replaceChildren();
+  if (r.erro) {
+    // Sem permissao para listar namespaces: usa o do contexto e deixa digitar (RF-12).
+    estado.nsLivre = r.erro.tipo === "sem_permissao";
+    if (estado.nsLivre) {
+      sel.hidden = true; $("#ns-livre").hidden = false;
+      if (!$("#ns-livre").value) $("#ns-livre").value = padrao;
+      $("#faixa-ns").replaceChildren();
+      faixa(r.erro.mensagem + " Usando o namespace do contexto; digite outro se precisar.", true, "#faixa-ns");
+    }
+    return r.erro;
+  }
+  for (const n of r.itens) sel.append(el("option", { value: n }, n));
+  const pedido = new URLSearchParams(location.search).get("ns");
+  sel.value = [pedido, estado.ns, padrao].find((n) => n && r.itens.includes(n)) || r.itens[0];
+  return null;
+}
+
+function agenda() {
+  clearInterval(estado.timer);
+  estado.timer = setInterval(() => { if (!document.hidden) atualiza(); }, estado.intervalo * 1000);
+}
+
+async function inicia() {
+  let ctx;
+  try { ctx = await pega("/api/contexto"); }
+  catch (e) { faixa("O processo do retrato não respondeu."); return; }
+  estado.intervalo = ctx.intervalo_s || 10;
+  const c = $("#ctx");
+  c.replaceChildren("contexto ", el("b", {}, ctx.contexto ?? "?"), " · cluster ", el("b", {}, ctx.cluster ?? "?"),
+    " · usuário ", el("b", {}, ctx.usuario ?? "?"), " · ", ctx.servidor ?? "");
+  if (ctx.erro) { faixa(ctx.erro.mensagem); return; }
+  const erroNs = await carregaNamespaces(ctx.namespace_padrao);
+  if (erroNs && !estado.nsLivre) { $("#faixas").replaceChildren(); faixa(erroNs.mensagem); }
+  await atualiza();
+  agenda();
+}
+
+$("#ns").addEventListener("change", () => { estado.ns = $("#ns").value; history.replaceState(null, "", "?ns=" + estado.ns); atualiza(); });
+$("#ns-livre").addEventListener("change", atualiza);
+$("#busca").addEventListener("input", () => { if (estado.ultimo) desenha(estado.ultimo); });
+$("#atualizar").addEventListener("click", async () => {
+  if (!$("#ns").options.length && !estado.nsLivre) await carregaNamespaces(""); // cluster pode ter voltado
+  atualiza();
+});
+document.addEventListener("visibilitychange", () => { if (!document.hidden) atualiza(); });
+setInterval(() => { if (!document.hidden && !estado.nsLivre) carregaNamespaces($("#ns").value); }, 60000);
+inicia();
+</script>
+</body>
+</html>

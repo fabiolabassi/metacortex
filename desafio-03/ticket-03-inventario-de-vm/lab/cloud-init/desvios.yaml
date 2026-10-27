@@ -1,0 +1,55 @@
+#cloud-config
+# construct-node-02: VM com desvios conhecidos, um por regra sempre que possivel.
+#   kernel 5.15 (22.04)             -> kernel.versao_minima (medio)
+#   sem chrony                      -> servicos.ativos (alto)
+#   rpcbind.socket e telnet.socket  -> servicos.proibidos (alto)
+#   swap de 512M                    -> swap.habilitado (critico)
+#   rpcbind 111 e telnet 23 em *    -> portas_em_escuta.publicas_permitidas (critico)
+#   node_exporter em 0.0.0.0:9100   -> portas_em_escuta.somente_rede_interna (critico)
+#   chave dozer@notebook            -> chaves_ssh.emitidas_por (critico)
+#   PermitRootLogin yes             -> ssh.login_de_root (alto)
+users:
+  - name: auditor
+    shell: /bin/bash
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    ssh_authorized_keys:
+      - @CHAVE_PLATAFORMA@
+      - @CHAVE_ESTRANHA@
+disable_root: true
+ssh_pwauth: false
+package_update: true
+packages: [containerd, rpcbind]
+write_files:
+  - path: /etc/ssh/sshd_config.d/10-legado.conf
+    content: |
+      PermitRootLogin yes
+  - path: /etc/systemd/system/node_exporter.service
+    content: |
+      [Unit]
+      Description=Prometheus node_exporter
+      After=network-online.target
+      [Service]
+      User=nobody
+      ExecStart=/usr/local/bin/node_exporter --web.listen-address=0.0.0.0:9100
+      [Install]
+      WantedBy=multi-user.target
+  # Simula o telnet legado (Ubuntu nao empacota mais telnetd por socket).
+  - path: /etc/systemd/system/telnet.socket
+    content: |
+      [Socket]
+      ListenStream=23
+      Accept=yes
+      [Install]
+      WantedBy=sockets.target
+  - path: /etc/systemd/system/telnet@.service
+    content: |
+      [Service]
+      ExecStart=/bin/false
+      StandardInput=socket
+runcmd:
+  - [sh, -c, 'cd /tmp && V=1.8.2 && curl -sfLO https://github.com/prometheus/node_exporter/releases/download/v$V/node_exporter-$V.linux-amd64.tar.gz && curl -sfLO https://github.com/prometheus/node_exporter/releases/download/v$V/sha256sums.txt && grep linux-amd64.tar.gz sha256sums.txt | sha256sum -c - && tar xzf node_exporter-$V.linux-amd64.tar.gz && install -m 0755 node_exporter-$V.linux-amd64/node_exporter /usr/local/bin/']
+  - [sh, -c, 'fallocate -l 512M /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && echo "/swapfile none swap sw 0 0" >> /etc/fstab']
+  - systemctl daemon-reload
+  - systemctl enable --now node_exporter containerd rpcbind.socket telnet.socket
+  - systemctl restart ssh
+  - touch /var/lib/cloud/roster-pronto

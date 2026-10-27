@@ -1,0 +1,26 @@
+test_401 (test_retrato.TestClassificacao.test_401) ... ok
+test_403 (test_retrato.TestClassificacao.test_403) ... ok
+test_inacessivel (test_retrato.TestClassificacao.test_inacessivel) ... ok
+test_ready_replicas_ausente_e_zero (test_retrato.TestDeployment.test_ready_replicas_ausente_e_zero) ... ok
+test_excecao_inesperada_vira_erro_da_secao (test_retrato.TestMontagem.test_excecao_inesperada_vira_erro_da_secao) ... erro interno ao listar: ZeroDivisionError
+ok
+test_secoes_independentes (test_retrato.TestMontagem.test_secoes_independentes) ... ok
+test_crashloop_com_oom (test_retrato.TestPod.test_crashloop_com_oom) ... ok
+test_marca_sem_readiness (test_retrato.TestPod.test_marca_sem_readiness) ... ok
+test_pending_sem_container_statuses (test_retrato.TestPod.test_pending_sem_container_statuses) ... ok
+test_ips_listados_nenhum_pronto (test_retrato.TestService.test_ips_listados_nenhum_pronto) ... ok
+test_porta_nao_resolvida (test_retrato.TestService.test_porta_nao_resolvida) ... ok
+test_ready_nulo_conta_como_pronto (test_retrato.TestService.test_ready_nulo_conta_como_pronto) ... ok
+test_sem_permissao_em_slices (test_retrato.TestService.test_sem_permissao_em_slices) ... ok
+test_slice_sem_endpoints_e_seletor_que_nao_casa (test_retrato.TestService.test_slice_sem_endpoints_e_seletor_que_nao_casa) ... ok
+test_contexto (test_retrato.TestServidor.test_contexto) ... ok
+test_escuta_so_em_loopback (test_retrato.TestServidor.test_escuta_so_em_loopback) ... ok
+test_metodos_de_escrita_sao_405 (test_retrato.TestServidor.test_metodos_de_escrita_sao_405) ... ok
+test_namespace_invalido (test_retrato.TestServidor.test_namespace_invalido) ... ok
+test_codigo_so_le (test_somente_leitura.TestSomenteLeitura.test_codigo_so_le) ... ok
+test_o_verificador_pega_escrita (test_somente_leitura.TestSomenteLeitura.test_o_verificador_pega_escrita) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.667s
+
+OK

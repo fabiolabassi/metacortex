@@ -1,0 +1,375 @@
+{
+    "namespace": "orion-stg",
+    "gerado_em": "2026-10-27T00:23:17Z",
+    "pods": {
+        "itens": [
+            {
+                "nome": "orion-postgres-6775c9f896-dhk8m",
+                "estado": "Running",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": null,
+                "prontos": "1/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "47m",
+                "sem_readiness": true
+            },
+            {
+                "nome": "orion-web-67cd86ffd5-4969z",
+                "estado": "ImagePullBackOff",
+                "falha": true,
+                "motivo": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\": ErrImagePull: rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to resolve reference \"docker.io/fabricioveronez/fake-shop:v1.14.2\": docker.io/fabricioveronez/fake-shop:v1.14.2: not found",
+                "ultimo_termino": null,
+                "prontos": "0/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "47m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "orion-web-67cd86ffd5-mcgf7",
+                "estado": "ErrImagePull",
+                "falha": true,
+                "motivo": "rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to resolve reference \"docker.io/fabricioveronez/fake-shop:v1.14.2\": docker.io/fabricioveronez/fake-shop:v1.14.2: not found",
+                "ultimo_termino": null,
+                "prontos": "0/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "47m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "orion-web-67cd86ffd5-zr8sm",
+                "estado": "ImagePullBackOff",
+                "falha": true,
+                "motivo": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\": ErrImagePull: rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to resolve reference \"docker.io/fabricioveronez/fake-shop:v1.14.2\": docker.io/fabricioveronez/fake-shop:v1.14.2: not found",
+                "ultimo_termino": null,
+                "prontos": "0/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "47m",
+                "sem_readiness": false
+            }
+        ]
+    },
+    "deployments": {
+        "itens": [
+            {
+                "nome": "orion-postgres",
+                "prontas": 1,
+                "desejadas": 1,
+                "atualizadas": 1,
+                "falha": false,
+                "condicao": null,
+                "imagens": [
+                    "postgres:16-alpine"
+                ],
+                "idade": "47m",
+                "sem_readiness": true
+            },
+            {
+                "nome": "orion-web",
+                "prontas": 0,
+                "desejadas": 3,
+                "atualizadas": 3,
+                "falha": true,
+                "condicao": "MinimumReplicasUnavailable",
+                "imagens": [
+                    "fabricioveronez/fake-shop:v1.14.2"
+                ],
+                "idade": "47m",
+                "sem_readiness": true
+            }
+        ]
+    },
+    "services": {
+        "itens": [
+            {
+                "nome": "orion-postgres",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "5432→5432"
+                ],
+                "dica": null,
+                "endpoint": "1/1 prontos",
+                "falha": false
+            },
+            {
+                "nome": "orion-web",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "80→5000"
+                ],
+                "dica": null,
+                "endpoint": "0/3 prontos",
+                "falha": true
+            }
+        ]
+    },
+    "eventos": {
+        "itens": [
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/orion-web-67cd86ffd5-zr8sm",
+                "mensagem": "Error: ImagePullBackOff",
+                "contagem": 198,
+                "idade": "1m",
+                "falha": true
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/orion-web-67cd86ffd5-4969z",
+                "mensagem": "Error: ImagePullBackOff",
+                "contagem": 196,
+                "idade": "1m",
+                "falha": true
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/orion-web-67cd86ffd5-mcgf7",
+                "mensagem": "Error: ImagePullBackOff",
+                "contagem": 194,
+                "idade": "1m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "BackOff",
+                "objeto": "Pod/orion-web-67cd86ffd5-4969z",
+                "mensagem": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+                "contagem": 194,
+                "idade": "2m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "BackOff",
+                "objeto": "Pod/orion-web-67cd86ffd5-mcgf7",
+                "mensagem": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+                "contagem": 192,
+                "idade": "2m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "BackOff",
+                "objeto": "Pod/orion-web-67cd86ffd5-zr8sm",
+                "mensagem": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+                "contagem": 195,
+                "idade": "2m",
+                "falha": false
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/orion-web-67cd86ffd5-zr8sm",
+                "mensagem": "Failed to pull image \"fabricioveronez/fake-shop:v1.14.2\": rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to resolve reference \"docker.io/fabricioveronez/fake-shop:v1.14.2\": docker.io/fabricioveronez/fake-shop:v1.14.2: not found",
+                "contagem": 5,
+                "idade": "43m",
+                "falha": true
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/orion-web-67cd86ffd5-zr8sm",
+                "mensagem": "Error: ErrImagePull",
+                "contagem": 5,
+                "idade": "43m",
+                "falha": true
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/orion-web-67cd86ffd5-4969z",
+                "mensagem": "Failed to pull image \"fabricioveronez/fake-shop:v1.14.2\": rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to resolve reference \"docker.io/fabricioveronez/fake-shop:v1.14.2\": docker.io/fabricioveronez/fake-shop:v1.14.2: not found",
+                "contagem": 5,
+                "idade": "43m",
+                "falha": true
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/orion-web-67cd86ffd5-4969z",
+                "mensagem": "Error: ErrImagePull",
+                "contagem": 5,
+                "idade": "43m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/orion-web-67cd86ffd5-4969z",
+                "mensagem": "Pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+                "contagem": 5,
+                "idade": "43m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/orion-web-67cd86ffd5-zr8sm",
+                "mensagem": "Pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+                "contagem": 5,
+                "idade": "43m",
+                "falha": false
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/orion-web-67cd86ffd5-mcgf7",
+                "mensagem": "Failed to pull image \"fabricioveronez/fake-shop:v1.14.2\": rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to resolve reference \"docker.io/fabricioveronez/fake-shop:v1.14.2\": docker.io/fabricioveronez/fake-shop:v1.14.2: not found",
+                "contagem": 5,
+                "idade": "43m",
+                "falha": true
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/orion-web-67cd86ffd5-mcgf7",
+                "mensagem": "Error: ErrImagePull",
+                "contagem": 5,
+                "idade": "43m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/orion-web-67cd86ffd5-mcgf7",
+                "mensagem": "Pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+                "contagem": 5,
+                "idade": "43m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/orion-postgres-6775c9f896-dhk8m",
+                "mensagem": "Successfully pulled image \"postgres:16-alpine\" in 1.301s (7.63s including waiting). Image size: 116086802 bytes.",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/orion-postgres-6775c9f896-dhk8m",
+                "mensagem": "Container created",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/orion-postgres-6775c9f896-dhk8m",
+                "mensagem": "Container started",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/orion-postgres-6775c9f896-dhk8m",
+                "mensagem": "Pulling image \"postgres:16-alpine\"",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/orion-postgres-6775c9f896-dhk8m",
+                "mensagem": "Successfully assigned orion-stg/orion-postgres-6775c9f896-dhk8m to kind-control-plane",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/orion-postgres-6775c9f896",
+                "mensagem": "Created pod: orion-postgres-6775c9f896-dhk8m",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "ScalingReplicaSet",
+                "objeto": "Deployment/orion-postgres",
+                "mensagem": "Scaled up replica set orion-postgres-6775c9f896 from 0 to 1",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/orion-web-67cd86ffd5-4969z",
+                "mensagem": "Successfully assigned orion-stg/orion-web-67cd86ffd5-4969z to kind-control-plane",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/orion-web-67cd86ffd5-mcgf7",
+                "mensagem": "Successfully assigned orion-stg/orion-web-67cd86ffd5-mcgf7 to kind-control-plane",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/orion-web-67cd86ffd5-zr8sm",
+                "mensagem": "Successfully assigned orion-stg/orion-web-67cd86ffd5-zr8sm to kind-control-plane",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/orion-web-67cd86ffd5",
+                "mensagem": "Created pod: orion-web-67cd86ffd5-4969z",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/orion-web-67cd86ffd5",
+                "mensagem": "Created pod: orion-web-67cd86ffd5-mcgf7",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/orion-web-67cd86ffd5",
+                "mensagem": "Created pod: orion-web-67cd86ffd5-zr8sm",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "ScalingReplicaSet",
+                "objeto": "Deployment/orion-web",
+                "mensagem": "Scaled up replica set orion-web-67cd86ffd5 from 0 to 3",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            }
+        ]
+    }
+}

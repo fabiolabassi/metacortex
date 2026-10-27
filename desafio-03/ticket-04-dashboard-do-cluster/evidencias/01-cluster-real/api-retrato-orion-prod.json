@@ -1,0 +1,348 @@
+{
+    "namespace": "orion-prod",
+    "gerado_em": "2026-10-27T00:23:18Z",
+    "pods": {
+        "itens": [
+            {
+                "nome": "orion-db-6667988b75-t7dwh",
+                "estado": "Running",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": null,
+                "prontos": "1/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "16m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "orion-fake-shop-5b4d8457dd-58z8m",
+                "estado": "Running",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": null,
+                "prontos": "1/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "15m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "orion-fake-shop-5b4d8457dd-894dv",
+                "estado": "Running",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": null,
+                "prontos": "1/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "15m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "orion-fake-shop-migracao-cn89v",
+                "estado": "Succeeded",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": null,
+                "prontos": "0/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "16m",
+                "sem_readiness": false
+            }
+        ]
+    },
+    "deployments": {
+        "itens": [
+            {
+                "nome": "orion-db",
+                "prontas": 1,
+                "desejadas": 1,
+                "atualizadas": 1,
+                "falha": false,
+                "condicao": null,
+                "imagens": [
+                    "postgres:16-alpine"
+                ],
+                "idade": "16m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "orion-fake-shop",
+                "prontas": 2,
+                "desejadas": 2,
+                "atualizadas": 2,
+                "falha": false,
+                "condicao": null,
+                "imagens": [
+                    "registry.metacortex.io/orion/fake-shop:v1"
+                ],
+                "idade": "15m",
+                "sem_readiness": false
+            }
+        ]
+    },
+    "services": {
+        "itens": [
+            {
+                "nome": "orion-db",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "5432→postgres"
+                ],
+                "dica": null,
+                "endpoint": "1/1 prontos",
+                "falha": false
+            },
+            {
+                "nome": "orion-fake-shop",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "80→http"
+                ],
+                "dica": null,
+                "endpoint": "2/2 prontos",
+                "falha": false
+            }
+        ]
+    },
+    "eventos": {
+        "itens": [
+            {
+                "tipo": "Warning",
+                "motivo": "Unhealthy",
+                "objeto": "Pod/orion-fake-shop-5b4d8457dd-58z8m",
+                "mensagem": "Readiness probe failed: Get \"http://10.244.0.20:5000/\": dial tcp 10.244.0.20:5000: connect: connection refused",
+                "contagem": 2,
+                "idade": "15m",
+                "falha": true
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Unhealthy",
+                "objeto": "Pod/orion-fake-shop-5b4d8457dd-894dv",
+                "mensagem": "Readiness probe failed: Get \"http://10.244.0.21:5000/\": dial tcp 10.244.0.21:5000: connect: connection refused",
+                "contagem": 2,
+                "idade": "15m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/orion-fake-shop-5b4d8457dd-58z8m",
+                "mensagem": "Container created",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/orion-fake-shop-5b4d8457dd-58z8m",
+                "mensagem": "Container started",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/orion-fake-shop-5b4d8457dd-894dv",
+                "mensagem": "Container created",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/orion-fake-shop-5b4d8457dd-894dv",
+                "mensagem": "Container started",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/orion-fake-shop-5b4d8457dd-58z8m",
+                "mensagem": "Successfully assigned orion-prod/orion-fake-shop-5b4d8457dd-58z8m to kind-control-plane",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/orion-fake-shop-5b4d8457dd-58z8m",
+                "mensagem": "Container image \"registry.metacortex.io/orion/fake-shop:v1\" already present on machine and can be accessed by the pod",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/orion-fake-shop-5b4d8457dd-894dv",
+                "mensagem": "Successfully assigned orion-prod/orion-fake-shop-5b4d8457dd-894dv to kind-control-plane",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/orion-fake-shop-5b4d8457dd-894dv",
+                "mensagem": "Container image \"registry.metacortex.io/orion/fake-shop:v1\" already present on machine and can be accessed by the pod",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/orion-fake-shop-5b4d8457dd",
+                "mensagem": "Created pod: orion-fake-shop-5b4d8457dd-58z8m",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/orion-fake-shop-5b4d8457dd",
+                "mensagem": "Created pod: orion-fake-shop-5b4d8457dd-894dv",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "ScalingReplicaSet",
+                "objeto": "Deployment/orion-fake-shop",
+                "mensagem": "Scaled up replica set orion-fake-shop-5b4d8457dd from 0 to 2",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Completed",
+                "objeto": "Job/orion-fake-shop-migracao",
+                "mensagem": "Job completed",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/orion-fake-shop-migracao-cn89v",
+                "mensagem": "Container image \"registry.metacortex.io/orion/fake-shop:v1\" already present on machine and can be accessed by the pod",
+                "contagem": 1,
+                "idade": "16m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/orion-fake-shop-migracao-cn89v",
+                "mensagem": "Container created",
+                "contagem": 1,
+                "idade": "16m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/orion-fake-shop-migracao-cn89v",
+                "mensagem": "Container started",
+                "contagem": 1,
+                "idade": "16m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/orion-fake-shop-migracao-cn89v",
+                "mensagem": "Successfully assigned orion-prod/orion-fake-shop-migracao-cn89v to kind-control-plane",
+                "contagem": 1,
+                "idade": "16m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "Job/orion-fake-shop-migracao",
+                "mensagem": "Created pod: orion-fake-shop-migracao-cn89v",
+                "contagem": 1,
+                "idade": "16m",
+                "falha": false
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Unhealthy",
+                "objeto": "Pod/orion-db-6667988b75-t7dwh",
+                "mensagem": "Readiness probe failed: /var/run/postgresql:5432 - no response\n",
+                "contagem": 4,
+                "idade": "16m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/orion-db-6667988b75-t7dwh",
+                "mensagem": "Container image \"postgres:16-alpine\" already present on machine and can be accessed by the pod",
+                "contagem": 1,
+                "idade": "16m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/orion-db-6667988b75-t7dwh",
+                "mensagem": "Container created",
+                "contagem": 1,
+                "idade": "16m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/orion-db-6667988b75-t7dwh",
+                "mensagem": "Container started",
+                "contagem": 1,
+                "idade": "16m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/orion-db-6667988b75-t7dwh",
+                "mensagem": "Successfully assigned orion-prod/orion-db-6667988b75-t7dwh to kind-control-plane",
+                "contagem": 1,
+                "idade": "16m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/orion-db-6667988b75",
+                "mensagem": "Created pod: orion-db-6667988b75-t7dwh",
+                "contagem": 1,
+                "idade": "16m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "ScalingReplicaSet",
+                "objeto": "Deployment/orion-db",
+                "mensagem": "Scaled up replica set orion-db-6667988b75 from 0 to 1",
+                "contagem": 1,
+                "idade": "16m",
+                "falha": false
+            }
+        ]
+    }
+}

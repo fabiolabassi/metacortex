@@ -1,0 +1,8 @@
+sessao:      04-endpoints-vs-endpointslice.jsonl
+modelo:      claude-opus-5-5
+skills:      nenhuma
+tempo:       20.5s
+turnos:      1
+tokens:      entrada 19507 (cache lido 10419), saida 2091
+custo:       US$ 0.1166
+ferramentas: 0 chamadas (0 MCP)

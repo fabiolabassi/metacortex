@@ -1,0 +1,36 @@
+ERRO  1.1  [script] nyx-api-barrado.yaml Deployment/NyxAPI — nome 'NyxAPI' fora de kebab-case
+ERRO  1.3  [script] nyx-api-barrado.yaml Deployment/NyxAPI — sem app.kubernetes.io/name, app.kubernetes.io/instance, app.kubernetes.io/part-of, app.kubernetes.io/managed-by (o rotulo curto 'app' sozinho nao atende)
+ERRO  1.3  [script] nyx-api-barrado.yaml Deployment/NyxAPI — template do pod sem app.kubernetes.io/name, app.kubernetes.io/instance, app.kubernetes.io/part-of, app.kubernetes.io/managed-by (o rotulo curto 'app' sozinho nao atende)
+ERRO  1.3  [script] nyx-api-barrado.yaml Service/nyx-api — sem app.kubernetes.io/name, app.kubernetes.io/instance, app.kubernetes.io/part-of, app.kubernetes.io/managed-by
+ERRO  1.4  [script] nyx-api-barrado.yaml Service/nyx-api — seletor {'app': 'nyx-api'} nao casa com nenhum pod do namespace — o Service sobe sem endpoint. Pods no arquivo: Deployment/NyxAPI {'app': 'nyxapi'}
+ERRO  2.1  [trivy ] nyx-api-barrado.yaml - — KSV-0011 (LOW): Container 'api' of Deployment 'NyxAPI' should set 'resources.limits.cpu'
+ERRO  2.1  [trivy ] nyx-api-barrado.yaml - — KSV-0015 (LOW): Container 'api' of Deployment 'NyxAPI' should set 'resources.requests.cpu'
+ERRO  2.1  [trivy ] nyx-api-barrado.yaml - — KSV-0016 (LOW): Container 'api' of Deployment 'NyxAPI' should set 'resources.requests.memory'
+ERRO  2.1  [trivy ] nyx-api-barrado.yaml - — KSV-0018 (LOW): Container 'api' of Deployment 'NyxAPI' should set 'resources.limits.memory'
+ERRO  2.2  [script] nyx-api-barrado.yaml Deployment/NyxAPI — container 'api' sem readinessProbe
+ERRO  2.2  [script] nyx-api-barrado.yaml Deployment/NyxAPI — container 'api' sem livenessProbe
+ERRO  2.3  [script] nyx-api-barrado.yaml Deployment/NyxAPI — replicas=1 em prod
+ERRO  2.4  [script] nyx-api-barrado.yaml Deployment/NyxAPI — prod exige RollingUpdate com maxUnavailable: 0 e maxSurge: 1 (declarado: nada — default 25%/25%)
+ERRO  3.1  [trivy ] nyx-api-barrado.yaml - — KSV-0013 (MEDIUM): Container 'api' of Deployment 'NyxAPI' should specify an image tag
+ERRO  3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0001 (MEDIUM): Container 'api' of Deployment 'NyxAPI' should set 'securityContext.allowPrivilegeEscalation' to false
+ERRO  3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0003 (LOW): Container 'api' of Deployment 'NyxAPI' should add 'ALL' to 'securityContext.capabilities.drop'
+ERRO  3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0004 (LOW): Container 'api' of 'deployment' 'NyxAPI' in 'nyx-prod' namespace should set securityContext.capabilities.drop
+ERRO  3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0012 (MEDIUM): Container 'api' of Deployment 'NyxAPI' should set 'securityContext.runAsNonRoot' to true
+ERRO  3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0014 (HIGH): Container 'api' of Deployment 'NyxAPI' should set 'securityContext.readOnlyRootFilesystem' to true
+ERRO  3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0020 (LOW): Container 'api' of Deployment 'NyxAPI' should set 'securityContext.runAsUser' > 10000
+ERRO  3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0106 (LOW): container should drop all
+ERRO  3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0118 (HIGH): container NyxAPI in nyx-prod namespace is using the default security context
+ERRO  3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0118 (HIGH): deployment NyxAPI in nyx-prod namespace is using the default security context, which allows root privileges
+ERRO  3.3  [script] nyx-api-barrado.yaml Deployment/NyxAPI — container 'api': env DATABASE_URL em texto puro — use secretKeyRef
+ERRO  3.4  [script] nyx-api-barrado.yaml Deployment/NyxAPI — automountServiceAccountToken ausente no pod e na SA — o default e montar
+AVISO 1.5  [script] nyx-api-barrado.yaml Deployment/NyxAPI — sem anotacao metacortex.io/owner
+AVISO 1.5  [script] nyx-api-barrado.yaml Deployment/NyxAPI — sem anotacao metacortex.io/runbook
+AVISO 1.5  [script] nyx-api-barrado.yaml Service/nyx-api — sem anotacao metacortex.io/owner
+AVISO 3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0021 (LOW): Container 'api' of Deployment 'NyxAPI' should set 'securityContext.runAsGroup' > 10000 [alem do texto da 3.2]
+AVISO 3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0030 (LOW): Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault' [alem do texto da 3.2]
+AVISO 3.2  [trivy ] nyx-api-barrado.yaml - — KSV-0104 (MEDIUM): container "api" of deployment "NyxAPI" in "nyx-prod" namespace should specify a seccomp profile [alem do texto da 3.2]
+AVISO 3.5  [script] nyx-api-barrado.yaml Deployment/NyxAPI — usa a ServiceAccount default do namespace
+
+2 objeto(s): 25 erro(s), 7 aviso(s). Regras violadas: 1.1, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 3.3, 3.4
+Falta a parte que exige ler o projeto: ver 'Conferencia — o que o script nao decide' no SKILL.md.
+exit=1

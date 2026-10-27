@@ -1,0 +1,18 @@
+# Inventário de construct-node-02 (127.0.0.1)
+Coletado em 2026-10-27 00:02 UTC · baseline v1
+
+## Desvios
+
+| Severidade | Regra | Esperado | Encontrado |
+|---|---|---|---|
+| crítico | swap.habilitado | false | true (512M) |
+| crítico | portas_em_escuta.publicas_permitidas | só 22 pública | 23 em * (systemd), 111 em 0.0.0.0 (rpcbind), 111 em :: (rpcbind) |
+| crítico | portas_em_escuta.somente_rede_interna | 9100 na rede interna | 9100 em * |
+| crítico | chaves_ssh.emitidas_por | todas emitidas por metacortex-platform | auditor: dozer@notebook |
+| alto | servicos.ativos | chrony ativo | ausente |
+| alto | servicos.proibidos | telnet.socket, rpcbind.socket inativos | rpcbind.socket, telnet.socket ativos |
+| alto | ssh.login_de_root | false | true (yes) |
+| médio | kernel.versao_minima | 6.5 | 5.15.0-198-generic |
+
+## Conforme
+so.distribuicao · so.versao_minima · ntp.sincronizado

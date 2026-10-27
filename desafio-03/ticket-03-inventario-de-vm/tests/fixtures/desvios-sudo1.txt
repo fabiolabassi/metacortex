@@ -1,0 +1,214 @@
+##RA## hostname rc=0
+construct-node-02
+##RA## os_release rc=0
+PRETTY_NAME="Ubuntu 22.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="22.04"
+VERSION="22.04.5 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
+##RA## kernel rc=0
+5.15.0-198-generic
+##RA## units rc=0
+apparmor.service                               loaded active exited    Load AppArmor profiles
+apport.service                                 loaded active exited    LSB: automatic crash report generation
+blk-availability.service                       loaded active exited    Availability of block devices
+cloud-config.service                           loaded active exited    Cloud-init: Config Stage
+cloud-final.service                            loaded active exited    Cloud-init: Final Stage
+cloud-init-local.service                       loaded active exited    Cloud-init: Local Stage (pre-network)
+cloud-init.service                             loaded active exited    Cloud-init: Network Stage
+console-setup.service                          loaded active exited    Set console font and keymap
+containerd.service                             loaded active running   containerd container runtime
+cron.service                                   loaded active running   Regular background program processing daemon
+dbus.service                                   loaded active running   D-Bus System Message Bus
+finalrd.service                                loaded active exited    Create final runtime dir for shutdown pivot root
+getty@tty1.service                             loaded active running   Getty on tty1
+keyboard-setup.service                         loaded active exited    Set the console keyboard layout
+kmod-static-nodes.service                      loaded active exited    Create List of Static Device Nodes
+lvm2-monitor.service                           loaded active exited    Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling
+multipathd.service                             loaded active running   Device-Mapper Multipath Device Controller
+networkd-dispatcher.service                    loaded active running   Dispatcher daemon for systemd-networkd
+node_exporter.service                          loaded active running   Prometheus node_exporter
+packagekit.service                             loaded active running   PackageKit Daemon
+plymouth-quit-wait.service                     loaded active exited    Hold until boot process finishes up
+plymouth-quit.service                          loaded active exited    Terminate Plymouth Boot Screen
+plymouth-read-write.service                    loaded active exited    Tell Plymouth To Write Out Runtime Data
+polkit.service                                 loaded active running   Authorization Manager
+rpcbind.service                                loaded active running   RPC bind portmap service
+rsyslog.service                                loaded active running   System Logging Service
+serial-getty@ttyS0.service                     loaded active running   Serial Getty on ttyS0
+setvtrgb.service                               loaded active exited    Set console scheme
+snapd.apparmor.service                         loaded active exited    Load AppArmor profiles managed internally by snapd
+snapd.seeded.service                           loaded active exited    Wait until snapd is fully seeded
+snapd.service                                  loaded active running   Snap Daemon
+ssh.service                                    loaded active running   OpenBSD Secure Shell server
+systemd-binfmt.service                         loaded active exited    Set Up Additional Binary Formats
+systemd-fsck-root.service                      loaded active exited    File System Check on Root Device
+systemd-fsck@dev-disk-by\x2dlabel-UEFI.service loaded active exited    File System Check on /dev/disk/by-label/UEFI
+systemd-journal-flush.service                  loaded active exited    Flush Journal to Persistent Storage
+systemd-journald.service                       loaded active running   Journal Service
+systemd-logind.service                         loaded active running   User Login Management
+systemd-machine-id-commit.service              loaded active exited    Commit a transient machine-id on disk
+systemd-modules-load.service                   loaded active exited    Load Kernel Modules
+systemd-networkd-wait-online.service           loaded active exited    Wait for Network to be Configured
+systemd-networkd.service                       loaded active running   Network Configuration
+systemd-random-seed.service                    loaded active exited    Load/Save Random Seed
+systemd-remount-fs.service                     loaded active exited    Remount Root and Kernel File Systems
+systemd-resolved.service                       loaded active running   Network Name Resolution
+systemd-sysctl.service                         loaded active exited    Apply Kernel Variables
+systemd-sysusers.service                       loaded active exited    Create System Users
+systemd-timedated.service                      loaded active running   Time & Date Service
+systemd-timesyncd.service                      loaded active running   Network Time Synchronization
+systemd-tmpfiles-setup-dev.service             loaded active exited    Create Static Device Nodes in /dev
+systemd-tmpfiles-setup.service                 loaded active exited    Create Volatile Files and Directories
+systemd-udev-trigger.service                   loaded active exited    Coldplug All udev Devices
+systemd-udevd.service                          loaded active running   Rule-based Manager for Device Events and Files
+systemd-update-utmp.service                    loaded active exited    Record System Boot/Shutdown in UTMP
+systemd-user-sessions.service                  loaded active exited    Permit User Sessions
+ufw.service                                    loaded active exited    Uncomplicated firewall
+unattended-upgrades.service                    loaded active running   Unattended Upgrades Shutdown
+user-runtime-dir@1000.service                  loaded active exited    User Runtime Directory /run/user/1000
+user@1000.service                              loaded active running   User Manager for UID 1000
+cloud-init-hotplugd.socket                     loaded active listening cloud-init hotplug hook socket
+dbus.socket                                    loaded active running   D-Bus System Message Bus Socket
+dm-event.socket                                loaded active listening Device-mapper event daemon FIFOs
+iscsid.socket                                  loaded active listening Open-iSCSI iscsid Socket
+lvm2-lvmpolld.socket                           loaded active listening LVM2 poll daemon socket
+multipathd.socket                              loaded active running   multipathd control socket
+rpcbind.socket                                 loaded active running   RPCbind Server Activation Socket
+snap.lxd.daemon.unix.socket                    loaded active listening Socket unix for snap application lxd.daemon
+snap.lxd.user-daemon.unix.socket               loaded active listening Socket unix for snap application lxd.user-daemon
+snapd.socket                                   loaded active running   Socket activation for snappy daemon
+syslog.socket                                  loaded active running   Syslog Socket
+systemd-fsckd.socket                           loaded active listening fsck to fsckd communication Socket
+systemd-initctl.socket                         loaded active listening initctl Compatibility Named Pipe
+systemd-journald-audit.socket                  loaded active running   Journal Audit Socket
+systemd-journald-dev-log.socket                loaded active running   Journal Socket (/dev/log)
+systemd-journald.socket                        loaded active running   Journal Socket
+systemd-networkd.socket                        loaded active running   Network Service Netlink Socket
+systemd-rfkill.socket                          loaded active listening Load/Save RF Kill Switch Status /dev/rfkill Watch
+systemd-udevd-control.socket                   loaded active running   udev Control Socket
+systemd-udevd-kernel.socket                    loaded active running   udev Kernel Socket
+telnet.socket                                  loaded active listening telnet.socket
+uuidd.socket                                   loaded active listening UUID daemon activation socket
+##RA## swaps rc=0
+Filename				Type		Size		Used		Priority
+/swapfile                               file		524284		0		-2
+##RA## listen rc=0
+LISTEN 0      4096         0.0.0.0:111   0.0.0.0:* users:(("rpcbind",pid=1943,fd=4),("systemd",pid=1,fd=59))
+LISTEN 0      128          0.0.0.0:22    0.0.0.0:* users:(("sshd",pid=2265,fd=3))                           
+LISTEN 0      4096       127.0.0.1:34449 0.0.0.0:* users:(("containerd",pid=2016,fd=15))                    
+LISTEN 0      4096   127.0.0.53%lo:53    0.0.0.0:* users:(("systemd-resolve",pid=522,fd=14))                
+LISTEN 0      4096            [::]:111      [::]:* users:(("rpcbind",pid=1943,fd=6),("systemd",pid=1,fd=61))
+LISTEN 0      128             [::]:22       [::]:* users:(("sshd",pid=2265,fd=4))                           
+LISTEN 0      4096               *:23          *:* users:(("systemd",pid=1,fd=55))                          
+LISTEN 0      4096               *:9100        *:* users:(("node_exporter",pid=2259,fd=3))                  
+##RA## authkeys_self rc=0
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+ktte//E5BHW8FBFLMOv3pk1LZ/XzlDN/Fy3hPBbpn platform@metacortex-platform
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPuOkKHxQMvUrMiBO0WOm5OdGkkrew9ywiDbrcLT/sX8 dozer@notebook
+##RA## authkeys_all rc=0
+auditor ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+ktte//E5BHW8FBFLMOv3pk1LZ/XzlDN/Fy3hPBbpn platform@metacortex-platform
+auditor ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPuOkKHxQMvUrMiBO0WOm5OdGkkrew9ywiDbrcLT/sX8 dozer@notebook
+##RA## sshd_t rc=0
+port 22
+addressfamily any
+listenaddress [::]:22
+listenaddress 0.0.0.0:22
+usepam yes
+logingracetime 120
+x11displayoffset 10
+maxauthtries 6
+maxsessions 10
+clientaliveinterval 0
+clientalivecountmax 3
+streamlocalbindmask 0177
+permitrootlogin yes
+ignorerhosts yes
+ignoreuserknownhosts no
+hostbasedauthentication no
+hostbasedusesnamefrompacketonly no
+pubkeyauthentication yes
+kerberosauthentication no
+kerberosorlocalpasswd yes
+kerberosticketcleanup yes
+gssapiauthentication no
+gssapicleanupcredentials yes
+gssapikeyexchange no
+gssapistrictacceptorcheck yes
+gssapistorecredentialsonrekey no
+gssapikexalgorithms gss-group14-sha256-,gss-group16-sha512-,gss-nistp256-sha256-,gss-curve25519-sha256-,gss-group14-sha1-,gss-gex-sha1-
+passwordauthentication no
+kbdinteractiveauthentication no
+printmotd no
+printlastlog yes
+x11forwarding yes
+x11uselocalhost yes
+permittty yes
+permituserrc yes
+strictmodes yes
+tcpkeepalive yes
+permitemptypasswords no
+compression yes
+gatewayports no
+usedns no
+allowtcpforwarding yes
+allowagentforwarding yes
+disableforwarding no
+allowstreamlocalforwarding yes
+streamlocalbindunlink no
+fingerprinthash SHA256
+exposeauthinfo no
+pidfile /run/sshd.pid
+modulifile /etc/ssh/moduli
+xauthlocation /usr/bin/xauth
+ciphers chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com
+macs umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1
+banner none
+forcecommand none
+chrootdirectory none
+trustedusercakeys none
+revokedkeys none
+securitykeyprovider internal
+authorizedprincipalsfile none
+versionaddendum none
+authorizedkeyscommand none
+authorizedkeyscommanduser none
+authorizedprincipalscommand none
+authorizedprincipalscommanduser none
+hostkeyagent none
+kexalgorithms curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,sntrup761x25519-sha512@openssh.com,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256
+casignaturealgorithms ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256
+hostbasedacceptedalgorithms ssh-ed25519-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,sk-ecdsa-sha2-nistp256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256
+hostkeyalgorithms ssh-ed25519-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,sk-ecdsa-sha2-nistp256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256
+pubkeyacceptedalgorithms ssh-ed25519-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,sk-ecdsa-sha2-nistp256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256
+loglevel INFO
+syslogfacility AUTH
+authorizedkeysfile .ssh/authorized_keys .ssh/authorized_keys2
+hostkey /etc/ssh/ssh_host_rsa_key
+hostkey /etc/ssh/ssh_host_ecdsa_key
+hostkey /etc/ssh/ssh_host_ed25519_key
+acceptenv LANG
+acceptenv LC_*
+authenticationmethods any
+subsystem sftp /usr/lib/openssh/sftp-server
+maxstartups 10:30:100
+persourcemaxstartups none
+persourcenetblocksize 32:128
+permittunnel no
+ipqos lowdelay throughput
+rekeylimit 0 0
+permitopen any
+permitlisten any
+permituserenvironment no
+pubkeyauthoptions none
+##RA## timedatectl rc=0
+NTP=yes
+NTPSynchronized=yes
+##RA## whoami rc=0
+auditor

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: orion-fake-shop
+  namespace: orion-prod
+  labels:
+    app.kubernetes.io/name: orion-fake-shop
+    app.kubernetes.io/instance: orion-prod
+    app.kubernetes.io/part-of: orion
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: time-orion
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: orion-fake-shop
+    app.kubernetes.io/instance: orion-prod
+  ports:
+    - {name: http, port: 80, targetPort: http}

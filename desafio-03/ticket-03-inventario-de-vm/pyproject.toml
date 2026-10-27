@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "roster-audit"
+version = "0.1.0"
+description = "Audita uma VM por SSH e compara com o baseline do parque da Metacortex"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6"]
+
+[project.scripts]
+roster-audit = "roster_audit.cli:main"
+
+[tool.setuptools.package-data]
+roster_audit = ["coleta.sh", "baseline_padrao.yaml"]

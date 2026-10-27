@@ -1,0 +1,2 @@
+coletado_em: 2026-10-27T00:02:22Z -> 2026-10-27T00:02:27Z
+IDENTICO (exceto coletado_em)

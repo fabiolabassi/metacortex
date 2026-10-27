@@ -1,0 +1,318 @@
+{
+    "namespace": "nyx-prod",
+    "gerado_em": "2026-10-27T00:23:16Z",
+    "pods": {
+        "itens": [
+            {
+                "nome": "nyx-api-656789474b-9f7q6",
+                "estado": "CrashLoopBackOff",
+                "falha": true,
+                "motivo": "back-off 5m0s restarting failed container=api pod=nyx-api-656789474b-9f7q6_nyx-prod(02b03663-0136-4d76-890c-17693d7448fe)",
+                "ultimo_termino": "OOMKilled (137)",
+                "prontos": "0/1",
+                "reinicios": 13,
+                "no": "kind-control-plane",
+                "idade": "47m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "nyx-api-656789474b-dmr9f",
+                "estado": "OOMKilled",
+                "falha": true,
+                "motivo": null,
+                "ultimo_termino": "OOMKilled (137)",
+                "prontos": "0/1",
+                "reinicios": 14,
+                "no": "kind-control-plane",
+                "idade": "47m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "nyx-postgres-f6fdc6dbf-47xmd",
+                "estado": "Running",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": null,
+                "prontos": "1/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "47m",
+                "sem_readiness": true
+            }
+        ]
+    },
+    "deployments": {
+        "itens": [
+            {
+                "nome": "nyx-api",
+                "prontas": 0,
+                "desejadas": 2,
+                "atualizadas": 2,
+                "falha": true,
+                "condicao": "MinimumReplicasUnavailable",
+                "imagens": [
+                    "fabricioveronez/kube-news:v1"
+                ],
+                "idade": "47m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "nyx-postgres",
+                "prontas": 1,
+                "desejadas": 1,
+                "atualizadas": 1,
+                "falha": false,
+                "condicao": null,
+                "imagens": [
+                    "postgres:16-alpine"
+                ],
+                "idade": "47m",
+                "sem_readiness": true
+            }
+        ]
+    },
+    "services": {
+        "itens": [
+            {
+                "nome": "nyx-api",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "80→8080"
+                ],
+                "dica": null,
+                "endpoint": "0/2 prontos",
+                "falha": true
+            },
+            {
+                "nome": "nyx-postgres",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "5432→5432"
+                ],
+                "dica": null,
+                "endpoint": "1/1 prontos",
+                "falha": false
+            }
+        ]
+    },
+    "eventos": {
+        "itens": [
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/nyx-api-656789474b-dmr9f",
+                "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
+                "contagem": 14,
+                "idade": "19s",
+                "falha": false
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "BackOff",
+                "objeto": "Pod/nyx-api-656789474b-9f7q6",
+                "mensagem": "Back-off restarting failed container api in pod nyx-api-656789474b-9f7q6_nyx-prod(02b03663-0136-4d76-890c-17693d7448fe)",
+                "contagem": 41,
+                "idade": "34s",
+                "falha": true
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "BackOff",
+                "objeto": "Pod/nyx-api-656789474b-dmr9f",
+                "mensagem": "Back-off restarting failed container api in pod nyx-api-656789474b-dmr9f_nyx-prod(fd40b0eb-28c3-4e2b-b9ce-e6c934af861e)",
+                "contagem": 45,
+                "idade": "1m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/nyx-api-656789474b-9f7q6",
+                "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
+                "contagem": 13,
+                "idade": "4m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/nyx-api-656789474b-9f7q6",
+                "mensagem": "Container created",
+                "contagem": 9,
+                "idade": "30m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/nyx-api-656789474b-9f7q6",
+                "mensagem": "Container started",
+                "contagem": 9,
+                "idade": "30m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/nyx-api-656789474b-dmr9f",
+                "mensagem": "Container created",
+                "contagem": 9,
+                "idade": "30m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/nyx-api-656789474b-dmr9f",
+                "mensagem": "Container started",
+                "contagem": 9,
+                "idade": "30m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/nyx-api-656789474b-dmr9f",
+                "mensagem": "Successfully pulled image \"fabricioveronez/kube-news:v1\" in 1.029s (36.121s including waiting). Image size: 75844157 bytes.",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/nyx-api-656789474b-9f7q6",
+                "mensagem": "Successfully pulled image \"fabricioveronez/kube-news:v1\" in 2.117s (35.146s including waiting). Image size: 75844157 bytes.",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/nyx-postgres-f6fdc6dbf-47xmd",
+                "mensagem": "Successfully pulled image \"postgres:16-alpine\" in 883ms (6.332s including waiting). Image size: 116086802 bytes.",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/nyx-postgres-f6fdc6dbf-47xmd",
+                "mensagem": "Container created",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/nyx-postgres-f6fdc6dbf-47xmd",
+                "mensagem": "Container started",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/nyx-api-656789474b-9f7q6",
+                "mensagem": "Pulling image \"fabricioveronez/kube-news:v1\"",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/nyx-api-656789474b-dmr9f",
+                "mensagem": "Pulling image \"fabricioveronez/kube-news:v1\"",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/nyx-postgres-f6fdc6dbf-47xmd",
+                "mensagem": "Pulling image \"postgres:16-alpine\"",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/nyx-api-656789474b-9f7q6",
+                "mensagem": "Successfully assigned nyx-prod/nyx-api-656789474b-9f7q6 to kind-control-plane",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/nyx-api-656789474b-dmr9f",
+                "mensagem": "Successfully assigned nyx-prod/nyx-api-656789474b-dmr9f to kind-control-plane",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/nyx-api-656789474b",
+                "mensagem": "Created pod: nyx-api-656789474b-9f7q6",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/nyx-api-656789474b",
+                "mensagem": "Created pod: nyx-api-656789474b-dmr9f",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "ScalingReplicaSet",
+                "objeto": "Deployment/nyx-api",
+                "mensagem": "Scaled up replica set nyx-api-656789474b from 0 to 2",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/nyx-postgres-f6fdc6dbf-47xmd",
+                "mensagem": "Successfully assigned nyx-prod/nyx-postgres-f6fdc6dbf-47xmd to kind-control-plane",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/nyx-postgres-f6fdc6dbf",
+                "mensagem": "Created pod: nyx-postgres-f6fdc6dbf-47xmd",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "ScalingReplicaSet",
+                "objeto": "Deployment/nyx-postgres",
+                "mensagem": "Scaled up replica set nyx-postgres-f6fdc6dbf from 0 to 1",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            }
+        ]
+    }
+}

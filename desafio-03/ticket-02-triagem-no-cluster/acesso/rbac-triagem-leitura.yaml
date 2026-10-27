@@ -1,0 +1,21 @@
+# Identidade que o mcp-server-kubernetes usa na triagem. So o ClusterRole
+# "view" do Kubernetes: le pods, logs, eventos, services, endpoints e
+# deployments; NAO le Secrets; nao tem nenhum verbo de escrita.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: triagem-leitura
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: triagem-leitura-view
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+subjects:
+  - kind: ServiceAccount
+    name: triagem-leitura
+    namespace: kube-system

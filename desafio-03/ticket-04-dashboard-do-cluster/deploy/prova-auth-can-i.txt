@@ -1,0 +1,6 @@
+list pods                                leitura=yes  restrito=yes
+list events                              leitura=yes  restrito=no
+list endpointslices.discovery.k8s.io     leitura=yes  restrito=no
+create deployments                       leitura=no   restrito=no
+patch deployments                        leitura=no   restrito=no
+delete pods                              leitura=no   restrito=no

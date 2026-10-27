@@ -1,0 +1,4 @@
+
+8 objeto(s): 0 erro(s), 0 aviso(s). Regras violadas: nenhuma
+Falta a parte que exige ler o projeto: ver 'Conferencia — o que o script nao decide' no SKILL.md.
+exit=0

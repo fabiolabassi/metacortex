@@ -1,0 +1,26 @@
+# Só o que não é sensível. DB_USER e DB_PASSWORD vêm do Secret orion-db,
+# criado fora do Git (ver comando no fim deste arquivo).
+# Nomes conforme src/index.py (os.getenv) e README do fake-shop.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orion-fake-shop
+  namespace: orion-prod
+  labels:
+    app.kubernetes.io/name: orion-fake-shop
+    app.kubernetes.io/instance: orion-prod
+    app.kubernetes.io/part-of: orion
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: time-orion
+data:
+  DB_HOST: orion-db.orion-prod.svc.cluster.local   # TODO: confirmar com o time-orion o host do PostgreSQL de prod
+  DB_PORT: "5432"
+  DB_NAME: ecommerce
+  FLASK_APP: index.py
+  PROMETHEUS_MULTIPROC_DIR: /tmp/metrics
+  PYTHONDONTWRITEBYTECODE: "1"
+# Secret (não versionado):
+#   kubectl -n orion-prod create secret generic orion-db \
+#     --from-literal=username=<usuario> \
+#     --from-literal=password="$(<cofre> orion/prod/db-password)"

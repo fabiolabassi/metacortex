@@ -1,0 +1,20 @@
+# Variáveis lidas em src/models/post.js. DB_PASSWORD não fica aqui: vem do
+# Secret nyx-db (criado fora do repositório) no Deployment.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nyx-api
+  namespace: nyx-dev
+  labels:
+    app.kubernetes.io/name: nyx-api
+    app.kubernetes.io/instance: nyx-dev
+    app.kubernetes.io/part-of: nyx
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: time-nyx
+data:
+  DB_HOST: nyx-db
+  DB_PORT: "5432"
+  DB_DATABASE: kubedevnews
+  DB_USERNAME: kubedevnews
+  DB_SSL_REQUIRE: "false"

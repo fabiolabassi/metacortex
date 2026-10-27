@@ -1,0 +1,15 @@
+sessao:      sem-skill/chamado-3.r2.jsonl
+modelo:      claude-opus-5-5
+skills:      nenhuma
+tempo:       24.1s
+turnos:      8
+tokens:      entrada 65380 (cache lido 60520), saida 1867
+custo:       US$ 0.0883
+ferramentas: 7 chamadas (6 MCP)
+  - ToolSearch                         {"query": "select:mcp__kubernetes__kubectl_get,mcp__kubernetes__kubectl_describe,mcp__kubernetes__kubectl_logs,mcp__kubernetes__ping", "max_
+  - mcp__kubernetes__kubectl_get       {"resourceType": "pods,svc,endpoints,ingress", "namespace": "nyx-stg", "output": "wide"}
+  - mcp__kubernetes__kubectl_get       {"resourceType": "pods", "namespace": "nyx-stg", "output": "custom"}
+  - mcp__kubernetes__kubectl_get       {"resourceType": "service", "name": "nyx-api", "namespace": "nyx-stg", "output": "yaml"}
+  - mcp__kubernetes__kubectl_get       {"resourceType": "ingress", "namespace": "nyx-stg", "output": "yaml"}
+  - mcp__kubernetes__kubectl_describe  {"resourceType": "pod", "name": "nyx-api-7f4487c6ff-trfpw", "namespace": "nyx-stg"}
+  - mcp__kubernetes__kubectl_get       {"resourceType": "ingress", "allNamespaces": true, "output": "wide"}

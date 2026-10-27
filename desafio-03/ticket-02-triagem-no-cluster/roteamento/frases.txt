@@ -1,0 +1,10 @@
+o pod do nyx-prod não sobe
+por que esse deployment está 0/3
+o service do nyx-stg não tem endpoint
+revisa esse deployment antes de eu subir
+esse manifesto está no padrão da casa?
+cria um Deployment novo do zero pra mim
+esse manifesto não sobe no cluster
+o Service do nyx não está entregando tráfego
+o que é um DaemonSet?
+provisiona uma VM nova no Construct pro cliente orion

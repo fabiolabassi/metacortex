@@ -1,0 +1,5 @@
+# Inventário de construct-node-01 (127.0.0.1)
+Coletado em 2026-10-27 00:04 UTC · baseline v1
+
+## Conforme
+so.distribuicao · so.versao_minima · kernel.versao_minima · servicos.ativos · servicos.proibidos · swap.habilitado · portas_em_escuta.publicas_permitidas · portas_em_escuta.somente_rede_interna · chaves_ssh.emitidas_por · ssh.login_de_root · ntp.sincronizado

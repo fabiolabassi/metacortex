@@ -1,0 +1,333 @@
+{
+    "namespace": "nyx-dev",
+    "gerado_em": "2026-10-27T00:23:19Z",
+    "pods": {
+        "itens": [
+            {
+                "nome": "nyx-api-c4f79c6bc-tsxgp",
+                "estado": "Running",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": null,
+                "prontos": "1/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "9m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "nyx-db-5b5cb76b4c-7dlr6",
+                "estado": "Running",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": null,
+                "prontos": "1/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "15m",
+                "sem_readiness": false
+            }
+        ]
+    },
+    "deployments": {
+        "itens": [
+            {
+                "nome": "nyx-api",
+                "prontas": 1,
+                "desejadas": 1,
+                "atualizadas": 1,
+                "falha": false,
+                "condicao": null,
+                "imagens": [
+                    "registry.metacortex.io/nyx/kube-news:v1"
+                ],
+                "idade": "15m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "nyx-db",
+                "prontas": 1,
+                "desejadas": 1,
+                "atualizadas": 1,
+                "falha": false,
+                "condicao": null,
+                "imagens": [
+                    "postgres:16-alpine"
+                ],
+                "idade": "15m",
+                "sem_readiness": false
+            }
+        ]
+    },
+    "services": {
+        "itens": [
+            {
+                "nome": "nyx-api",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "80→http"
+                ],
+                "dica": null,
+                "endpoint": "1/1 prontos",
+                "falha": false
+            },
+            {
+                "nome": "nyx-db",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "5432→postgres"
+                ],
+                "dica": null,
+                "endpoint": "1/1 prontos",
+                "falha": false
+            }
+        ]
+    },
+    "eventos": {
+        "itens": [
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/nyx-api-c4f79c6bc-tsxgp",
+                "mensagem": "Container image \"registry.metacortex.io/nyx/kube-news:v1\" already present on machine and can be accessed by the pod",
+                "contagem": 1,
+                "idade": "9m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/nyx-api-c4f79c6bc-tsxgp",
+                "mensagem": "Container created",
+                "contagem": 1,
+                "idade": "9m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/nyx-api-c4f79c6bc-tsxgp",
+                "mensagem": "Container started",
+                "contagem": 1,
+                "idade": "9m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/nyx-api-c4f79c6bc-tsxgp",
+                "mensagem": "Successfully assigned nyx-dev/nyx-api-c4f79c6bc-tsxgp to kind-control-plane",
+                "contagem": 1,
+                "idade": "9m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/nyx-api-c4f79c6bc",
+                "mensagem": "Created pod: nyx-api-c4f79c6bc-tsxgp",
+                "contagem": 1,
+                "idade": "9m",
+                "falha": false
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/nyx-api-c4f79c6bc-tjzqx",
+                "mensagem": "Error: ImagePullBackOff",
+                "contagem": 7,
+                "idade": "9m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "BackOff",
+                "objeto": "Pod/nyx-api-c4f79c6bc-tjzqx",
+                "mensagem": "Back-off pulling image \"registry.metacortex.io/nyx/kube-news:v1\"",
+                "contagem": 7,
+                "idade": "9m",
+                "falha": false
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/nyx-api-c4f79c6bc-tjzqx",
+                "mensagem": "Failed to pull image \"registry.metacortex.io/nyx/kube-news:v1\": failed to pull and unpack image \"registry.metacortex.io/nyx/kube-news:v1\": failed to resolve reference \"registry.metacortex.io/nyx/kube-news:v1\": failed to do request: Head \"https://registry.metacortex.io/v2/nyx/kube-news/manifests/v1\": dial tcp: lookup registry.metacortex.io on 172.23.0.1:53: no such host",
+                "contagem": 4,
+                "idade": "9m",
+                "falha": true
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/nyx-api-c4f79c6bc-tjzqx",
+                "mensagem": "Error: ErrImagePull",
+                "contagem": 4,
+                "idade": "9m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/nyx-api-c4f79c6bc-tjzqx",
+                "mensagem": "Pulling image \"registry.metacortex.io/nyx/kube-news:v1\"",
+                "contagem": 4,
+                "idade": "9m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/nyx-api-c4f79c6bc-tjzqx",
+                "mensagem": "Successfully assigned nyx-dev/nyx-api-c4f79c6bc-tjzqx to kind-control-plane",
+                "contagem": 1,
+                "idade": "11m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/nyx-api-c4f79c6bc",
+                "mensagem": "Created pod: nyx-api-c4f79c6bc-tjzqx",
+                "contagem": 1,
+                "idade": "11m",
+                "falha": false
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/nyx-api-c4f79c6bc-ttmkt",
+                "mensagem": "Error: ImagePullBackOff",
+                "contagem": 15,
+                "idade": "11m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "BackOff",
+                "objeto": "Pod/nyx-api-c4f79c6bc-ttmkt",
+                "mensagem": "Back-off pulling image \"registry.metacortex.io/nyx/kube-news:v1\"",
+                "contagem": 15,
+                "idade": "11m",
+                "falha": false
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/nyx-api-c4f79c6bc-ttmkt",
+                "mensagem": "Failed to pull image \"registry.metacortex.io/nyx/kube-news:v1\": failed to pull and unpack image \"registry.metacortex.io/nyx/kube-news:v1\": failed to resolve reference \"registry.metacortex.io/nyx/kube-news:v1\": failed to do request: Head \"https://registry.metacortex.io/v2/nyx/kube-news/manifests/v1\": dial tcp: lookup registry.metacortex.io on 172.23.0.1:53: no such host",
+                "contagem": 5,
+                "idade": "12m",
+                "falha": true
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Failed",
+                "objeto": "Pod/nyx-api-c4f79c6bc-ttmkt",
+                "mensagem": "Error: ErrImagePull",
+                "contagem": 5,
+                "idade": "12m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/nyx-api-c4f79c6bc-ttmkt",
+                "mensagem": "Pulling image \"registry.metacortex.io/nyx/kube-news:v1\"",
+                "contagem": 5,
+                "idade": "12m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/nyx-api-c4f79c6bc-ttmkt",
+                "mensagem": "Successfully assigned nyx-dev/nyx-api-c4f79c6bc-ttmkt to kind-control-plane",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/nyx-api-c4f79c6bc",
+                "mensagem": "Created pod: nyx-api-c4f79c6bc-ttmkt",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "ScalingReplicaSet",
+                "objeto": "Deployment/nyx-api",
+                "mensagem": "Scaled up replica set nyx-api-c4f79c6bc from 0 to 1",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Unhealthy",
+                "objeto": "Pod/nyx-db-5b5cb76b4c-7dlr6",
+                "mensagem": "Readiness probe failed: /var/run/postgresql:5432 - no response\n",
+                "contagem": 3,
+                "idade": "15m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/nyx-db-5b5cb76b4c-7dlr6",
+                "mensagem": "Successfully assigned nyx-dev/nyx-db-5b5cb76b4c-7dlr6 to kind-control-plane",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/nyx-db-5b5cb76b4c-7dlr6",
+                "mensagem": "Container image \"postgres:16-alpine\" already present on machine and can be accessed by the pod",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/nyx-db-5b5cb76b4c-7dlr6",
+                "mensagem": "Container created",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/nyx-db-5b5cb76b4c-7dlr6",
+                "mensagem": "Container started",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/nyx-db-5b5cb76b4c",
+                "mensagem": "Created pod: nyx-db-5b5cb76b4c-7dlr6",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "ScalingReplicaSet",
+                "objeto": "Deployment/nyx-db",
+                "mensagem": "Scaled up replica set nyx-db-5b5cb76b4c from 0 to 1",
+                "contagem": 1,
+                "idade": "15m",
+                "falha": false
+            }
+        ]
+    }
+}

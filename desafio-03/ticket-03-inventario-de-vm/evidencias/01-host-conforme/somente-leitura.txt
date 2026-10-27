@@ -1,0 +1,9 @@
+# RNF-01: arquivos modificados no host durante uma auditoria com --sudo
+# T0 (relogio do host) = 2026-10-27T00:04:29
+$ roster-audit --endereco 127.0.0.1 --porta 2221 --usuario auditor --chave <chave> --sudo   (exit 0)
+$ sudo find / -xdev -newermt T0 -type f   (fora de /proc /sys /run /dev /tmp)
+/var/log/auth.log
+/var/log/journal/dbc81fac035c40b084e000d2d44553e4/system.journal
+/var/log/journal/dbc81fac035c40b084e000d2d44553e4/user-1000.journal
+/var/log/syslog
+$ sudo find /tmp /home -newermt T0   (a coleta nao deixa arquivo temporario)

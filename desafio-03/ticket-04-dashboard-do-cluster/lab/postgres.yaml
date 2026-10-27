@@ -1,0 +1,60 @@
+# Banco de LABORATORIO para os workloads do dashboard. Nao faz parte dos
+# manifests do cliente (o banco de prod e gerenciado/externo). Compativel com
+# Pod Security "restricted" dos namespaces gerados pela skill do Ticket 01.
+# Placeholders: __NS__, __NOME__, __DB__, __USUARIO__.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: __NOME__
+  namespace: __NS__
+  labels: {app.kubernetes.io/name: __NOME__, app.kubernetes.io/instance: __NS__, app.kubernetes.io/part-of: lab, app.kubernetes.io/managed-by: platform}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app.kubernetes.io/name: __NOME__, app.kubernetes.io/instance: __NS__}
+  template:
+    metadata:
+      labels: {app.kubernetes.io/name: __NOME__, app.kubernetes.io/instance: __NS__, app.kubernetes.io/part-of: lab, app.kubernetes.io/managed-by: platform}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 70          # usuario postgres da imagem alpine
+        runAsGroup: 70
+        fsGroup: 70
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          env:
+            - {name: POSTGRES_DB, value: __DB__}
+            - {name: POSTGRES_USER, value: __USUARIO__}
+            - {name: PGDATA, value: /var/lib/postgresql/data/pgdata}
+            - name: POSTGRES_PASSWORD
+              valueFrom: {secretKeyRef: {name: __NOME__, key: password}}
+          ports: [{name: postgres, containerPort: 5432}]
+          readinessProbe:
+            exec: {command: ["pg_isready", "-U", "__USUARIO__", "-d", "__DB__"]}
+            periodSeconds: 5
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {cpu: 500m, memory: 256Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {drop: ["ALL"]}
+          volumeMounts:
+            - {name: dados, mountPath: /var/lib/postgresql/data}
+            - {name: socket, mountPath: /var/run/postgresql}
+      volumes:
+        - {name: dados, emptyDir: {}}
+        - {name: socket, emptyDir: {}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: __NOME__
+  namespace: __NS__
+  labels: {app.kubernetes.io/name: __NOME__, app.kubernetes.io/instance: __NS__, app.kubernetes.io/part-of: lab, app.kubernetes.io/managed-by: platform}
+spec:
+  selector: {app.kubernetes.io/name: __NOME__, app.kubernetes.io/instance: __NS__}
+  ports: [{name: postgres, port: 5432, targetPort: postgres}]

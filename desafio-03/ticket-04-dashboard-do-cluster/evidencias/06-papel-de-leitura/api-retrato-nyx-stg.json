@@ -1,0 +1,300 @@
+{
+    "namespace": "nyx-stg",
+    "gerado_em": "2026-10-27T00:23:02Z",
+    "pods": {
+        "itens": [
+            {
+                "nome": "nyx-api-7f4487c6ff-trfpw",
+                "estado": "Running",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": null,
+                "prontos": "1/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "47m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "nyx-api-7f4487c6ff-wvt62",
+                "estado": "Running",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": "Error (1)",
+                "prontos": "1/1",
+                "reinicios": 1,
+                "no": "kind-control-plane",
+                "idade": "47m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "nyx-postgres-f6fdc6dbf-w4wwf",
+                "estado": "Running",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": null,
+                "prontos": "1/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "47m",
+                "sem_readiness": true
+            }
+        ]
+    },
+    "deployments": {
+        "itens": [
+            {
+                "nome": "nyx-api",
+                "prontas": 2,
+                "desejadas": 2,
+                "atualizadas": 2,
+                "falha": false,
+                "condicao": null,
+                "imagens": [
+                    "fabricioveronez/kube-news:v1"
+                ],
+                "idade": "47m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "nyx-postgres",
+                "prontas": 1,
+                "desejadas": 1,
+                "atualizadas": 1,
+                "falha": false,
+                "condicao": null,
+                "imagens": [
+                    "postgres:16-alpine"
+                ],
+                "idade": "47m",
+                "sem_readiness": true
+            }
+        ]
+    },
+    "services": {
+        "itens": [
+            {
+                "nome": "nyx-api",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "80→8080"
+                ],
+                "dica": "nenhum pod do namespace casa com o seletor app=nyx-api",
+                "endpoint": "sem endpoint",
+                "falha": true
+            },
+            {
+                "nome": "nyx-postgres",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "5432→5432"
+                ],
+                "dica": null,
+                "endpoint": "1/1 prontos",
+                "falha": false
+            }
+        ]
+    },
+    "eventos": {
+        "itens": [
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/nyx-api-7f4487c6ff-wvt62",
+                "mensagem": "Container created",
+                "contagem": 2,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/nyx-api-7f4487c6ff-wvt62",
+                "mensagem": "Container started",
+                "contagem": 2,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Warning",
+                "motivo": "Unhealthy",
+                "objeto": "Pod/nyx-api-7f4487c6ff-wvt62",
+                "mensagem": "Readiness probe failed: Get \"http://10.244.0.9:8080/ready\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": true
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/nyx-api-7f4487c6ff-wvt62",
+                "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/nyx-api-7f4487c6ff-trfpw",
+                "mensagem": "Successfully pulled image \"fabricioveronez/kube-news:v1\" in 1.34s (22.154s including waiting). Image size: 75844157 bytes.",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/nyx-api-7f4487c6ff-trfpw",
+                "mensagem": "Container created",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/nyx-api-7f4487c6ff-trfpw",
+                "mensagem": "Container started",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/nyx-api-7f4487c6ff-wvt62",
+                "mensagem": "Successfully pulled image \"fabricioveronez/kube-news:v1\" in 12.55s (20.18s including waiting). Image size: 75844157 bytes.",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Started",
+                "objeto": "Pod/nyx-postgres-f6fdc6dbf-w4wwf",
+                "mensagem": "Container started",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulled",
+                "objeto": "Pod/nyx-postgres-f6fdc6dbf-w4wwf",
+                "mensagem": "Successfully pulled image \"postgres:16-alpine\" in 5.448s (5.448s including waiting). Image size: 116086802 bytes.",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Created",
+                "objeto": "Pod/nyx-postgres-f6fdc6dbf-w4wwf",
+                "mensagem": "Container created",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/nyx-api-7f4487c6ff-trfpw",
+                "mensagem": "Pulling image \"fabricioveronez/kube-news:v1\"",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/nyx-api-7f4487c6ff-wvt62",
+                "mensagem": "Pulling image \"fabricioveronez/kube-news:v1\"",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Pulling",
+                "objeto": "Pod/nyx-postgres-f6fdc6dbf-w4wwf",
+                "mensagem": "Pulling image \"postgres:16-alpine\"",
+                "contagem": 1,
+                "idade": "46m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/nyx-api-7f4487c6ff-trfpw",
+                "mensagem": "Successfully assigned nyx-stg/nyx-api-7f4487c6ff-trfpw to kind-control-plane",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/nyx-api-7f4487c6ff-wvt62",
+                "mensagem": "Successfully assigned nyx-stg/nyx-api-7f4487c6ff-wvt62 to kind-control-plane",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/nyx-api-7f4487c6ff",
+                "mensagem": "Created pod: nyx-api-7f4487c6ff-trfpw",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/nyx-api-7f4487c6ff",
+                "mensagem": "Created pod: nyx-api-7f4487c6ff-wvt62",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "ScalingReplicaSet",
+                "objeto": "Deployment/nyx-api",
+                "mensagem": "Scaled up replica set nyx-api-7f4487c6ff from 0 to 2",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "Scheduled",
+                "objeto": "Pod/nyx-postgres-f6fdc6dbf-w4wwf",
+                "mensagem": "Successfully assigned nyx-stg/nyx-postgres-f6fdc6dbf-w4wwf to kind-control-plane",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "SuccessfulCreate",
+                "objeto": "ReplicaSet/nyx-postgres-f6fdc6dbf",
+                "mensagem": "Created pod: nyx-postgres-f6fdc6dbf-w4wwf",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            },
+            {
+                "tipo": "Normal",
+                "motivo": "ScalingReplicaSet",
+                "objeto": "Deployment/nyx-postgres",
+                "mensagem": "Scaled up replica set nyx-postgres-f6fdc6dbf from 0 to 1",
+                "contagem": 1,
+                "idade": "47m",
+                "falha": false
+            }
+        ]
+    }
+}

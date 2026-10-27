@@ -1,0 +1,12 @@
+# Inventário de construct-node-01 (127.0.0.1)
+Coletado em 2026-10-27 00:04 UTC · baseline v1
+
+## Não verificado
+
+| Regra | Motivo |
+|---|---|
+| chaves_ssh.emitidas_por | só a conta da coleta (auditor) foi lida, e a única chave dela é da plataforma; as outras contas exigem privilégio (use --sudo) |
+| ssh.login_de_root | exige privilégio que o usuário da coleta não tem (sshd -T precisa de root; use --sudo) |
+
+## Conforme
+so.distribuicao · so.versao_minima · kernel.versao_minima · servicos.ativos · servicos.proibidos · swap.habilitado · portas_em_escuta.publicas_permitidas · portas_em_escuta.somente_rede_interna · ntp.sincronizado

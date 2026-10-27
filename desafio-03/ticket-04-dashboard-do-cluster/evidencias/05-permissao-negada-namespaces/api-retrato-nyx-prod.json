@@ -1,0 +1,112 @@
+{
+    "namespace": "nyx-prod",
+    "gerado_em": "2026-10-27T00:21:43Z",
+    "pods": {
+        "itens": [
+            {
+                "nome": "nyx-api-656789474b-9f7q6",
+                "estado": "CrashLoopBackOff",
+                "falha": true,
+                "motivo": "back-off 5m0s restarting failed container=api pod=nyx-api-656789474b-9f7q6_nyx-prod(02b03663-0136-4d76-890c-17693d7448fe)",
+                "ultimo_termino": "OOMKilled (137)",
+                "prontos": "0/1",
+                "reinicios": 13,
+                "no": "kind-control-plane",
+                "idade": "45m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "nyx-api-656789474b-dmr9f",
+                "estado": "CrashLoopBackOff",
+                "falha": true,
+                "motivo": "back-off 5m0s restarting failed container=api pod=nyx-api-656789474b-dmr9f_nyx-prod(fd40b0eb-28c3-4e2b-b9ce-e6c934af861e)",
+                "ultimo_termino": "OOMKilled (137)",
+                "prontos": "0/1",
+                "reinicios": 13,
+                "no": "kind-control-plane",
+                "idade": "45m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "nyx-postgres-f6fdc6dbf-47xmd",
+                "estado": "Running",
+                "falha": false,
+                "motivo": null,
+                "ultimo_termino": null,
+                "prontos": "1/1",
+                "reinicios": 0,
+                "no": "kind-control-plane",
+                "idade": "45m",
+                "sem_readiness": true
+            }
+        ]
+    },
+    "deployments": {
+        "itens": [
+            {
+                "nome": "nyx-api",
+                "prontas": 0,
+                "desejadas": 2,
+                "atualizadas": 2,
+                "falha": true,
+                "condicao": "MinimumReplicasUnavailable",
+                "imagens": [
+                    "fabricioveronez/kube-news:v1"
+                ],
+                "idade": "45m",
+                "sem_readiness": false
+            },
+            {
+                "nome": "nyx-postgres",
+                "prontas": 1,
+                "desejadas": 1,
+                "atualizadas": 1,
+                "falha": false,
+                "condicao": null,
+                "imagens": [
+                    "postgres:16-alpine"
+                ],
+                "idade": "45m",
+                "sem_readiness": true
+            }
+        ]
+    },
+    "services": {
+        "itens": [
+            {
+                "nome": "nyx-api",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "80→8080"
+                ],
+                "dica": null,
+                "endpoint": "sem permissão",
+                "falha": false,
+                "erro_endpoint": {
+                    "tipo": "sem_permissao",
+                    "mensagem": "Sem permissão para listar endpointslices em nyx-prod."
+                }
+            },
+            {
+                "nome": "nyx-postgres",
+                "tipo": "ClusterIP",
+                "portas": [
+                    "5432→5432"
+                ],
+                "dica": null,
+                "endpoint": "sem permissão",
+                "falha": false,
+                "erro_endpoint": {
+                    "tipo": "sem_permissao",
+                    "mensagem": "Sem permissão para listar endpointslices em nyx-prod."
+                }
+            }
+        ]
+    },
+    "eventos": {
+        "erro": {
+            "tipo": "sem_permissao",
+            "mensagem": "Sem permissão para listar events em nyx-prod."
+        }
+    }
+}

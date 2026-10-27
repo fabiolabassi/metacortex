@@ -1,0 +1,9 @@
+retrato: INFO contexto lattice-dev (cluster lattice-dev, https://127.0.0.1:1)
+retrato: INFO abra http://127.0.0.1:8766  (Ctrl+C para sair)
+retrato: INFO cluster inacessivel ao listar namespaces: NewConnectionError
+retrato: INFO cluster inacessivel ao listar pods: NewConnectionError
+retrato: INFO cluster inacessivel ao listar deployments: NewConnectionError
+retrato: INFO cluster inacessivel ao listar endpointslices: NewConnectionError
+retrato: INFO cluster inacessivel ao listar events: NewConnectionError
+retrato: INFO cluster inacessivel ao listar services: NewConnectionError
+retrato: INFO cluster inacessivel ao listar namespaces: NewConnectionError

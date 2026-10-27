@@ -1,0 +1,2 @@
+ferramentas expostas: ['kubectl_get', 'kubectl_describe', 'kubectl_logs', 'explain_resource', 'list_api_resources', 'ping']
+so ALLOW_ONLY_NON_DESTRUCTIVE_TOOLS=true expoe: ['kubectl_get', 'kubectl_describe', 'kubectl_apply', 'kubectl_create', 'kubectl_logs', 'kubectl_scale', 'kubectl_patch', 'kubectl_rollout', 'kubectl_context', 'kubectl_reconnect', 'explain_resource', 'install_helm_chart', 'upgrade_helm_chart', 'port_forward', 'stop_port_forward', 'list_api_resources', 'ping']

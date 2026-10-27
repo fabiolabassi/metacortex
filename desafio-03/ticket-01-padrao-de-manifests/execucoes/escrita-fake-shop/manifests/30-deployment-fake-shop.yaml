@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orion-fake-shop
+  namespace: orion-prod
+  labels:
+    app.kubernetes.io/name: orion-fake-shop
+    app.kubernetes.io/instance: orion-prod
+    app.kubernetes.io/part-of: orion
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: time-orion
+    metacortex.io/runbook: https://runbooks.metacortex.io/orion/fake-shop
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: {maxUnavailable: 0, maxSurge: 1}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: orion-fake-shop
+      app.kubernetes.io/instance: orion-prod
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: orion-fake-shop
+        app.kubernetes.io/instance: orion-prod
+        app.kubernetes.io/part-of: orion
+        app.kubernetes.io/managed-by: platform
+    spec:
+      serviceAccountName: orion-fake-shop
+      automountServiceAccountToken: false
+      # gunicorn trata SIGTERM e espera os workers por até 30s (graceful_timeout
+      # padrão); 40s dá folga antes do SIGKILL.
+      terminationGracePeriodSeconds: 40
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001                  # usuário "app" da imagem (useradd --uid 10001)
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile: {type: RuntimeDefault}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: orion-fake-shop
+              app.kubernetes.io/instance: orion-prod
+      containers:
+        - name: fake-shop
+          image: registry.metacortex.io/orion/fake-shop:v1
+          # Substitui o entrypoint.sh da imagem: a migração roda no Job
+          # 25-job-fake-shop-migracao, e o gunicorn vira o PID 1 (o bash do
+          # entrypoint não repassa SIGTERM).
+          command: ["python", "-m", "gunicorn"]
+          args: ["--bind", "0.0.0.0:5000", "--workers", "2", "index:app"]
+          ports:
+            - {name: http, containerPort: 5000}
+          envFrom:
+            - configMapRef: {name: orion-fake-shop}
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef: {name: orion-db, key: username}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef: {name: orion-db, key: password}
+          resources:                      # chute inicial (Flask+gunicorn, 2 workers): ajustar por medição
+            requests: {cpu: 100m, memory: 192Mi}
+            limits: {cpu: 500m, memory: 384Mi}
+          # A app não tem /health nem /ready.
+          # readiness: "/" lista produtos do banco; sem banco ou sem esquema
+          # responde 500 e o pod só sai do Service.
+          readinessProbe:
+            httpGet: {path: /, port: http}
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          # liveness: /metrics não toca o banco; só prova que o gunicorn responde.
+          livenessProbe:
+            httpGet: {path: /metrics, port: http}
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+            capabilities: {drop: ["ALL"]}
+          volumeMounts:
+            - {name: tmp, mountPath: /tmp}              # heartbeat dos workers do gunicorn
+            - {name: metrics, mountPath: /tmp/metrics}  # PROMETHEUS_MULTIPROC_DIR
+      volumes:
+        - name: tmp
+          emptyDir: {sizeLimit: 64Mi}
+        - name: metrics
+          emptyDir: {medium: Memory, sizeLimit: 16Mi}

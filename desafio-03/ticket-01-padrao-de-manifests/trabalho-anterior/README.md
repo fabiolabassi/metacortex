@@ -1,7 +1,7 @@
 # metacortex — manifests de referência
 
 Resposta ao desafio técnico do **Padrão de Manifests da Metacortex** (revisão
-de 2026-07-29, [enunciado aqui](docs/padrao-de-manifests.md)).
+de 2026-07-29, [enunciado aqui](../anexo-padrao-de-manifests.md)).
 
 O repositório tem quatro entregas:
 

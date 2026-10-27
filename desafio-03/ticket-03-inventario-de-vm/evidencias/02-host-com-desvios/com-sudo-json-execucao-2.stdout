@@ -1,0 +1,620 @@
+{
+  "host": {
+    "endereco": "127.0.0.1",
+    "hostname": "construct-node-02",
+    "coletado_em": "2026-10-27T00:02:27Z"
+  },
+  "inventario": {
+    "so": {
+      "distribuicao": "ubuntu",
+      "versao": "22.04.5"
+    },
+    "kernel": {
+      "versao": "5.15.0-198-generic"
+    },
+    "servicos": [
+      {
+        "nome": "apparmor.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "apport.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "blk-availability.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "cloud-config.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "cloud-final.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "cloud-init-hotplugd.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "cloud-init-local.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "cloud-init.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "console-setup.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "containerd.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "cron.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "dbus.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "dbus.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "dm-event.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "finalrd.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "getty@tty1.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "iscsid.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "keyboard-setup.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "kmod-static-nodes.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "lvm2-lvmpolld.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "lvm2-monitor.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "multipathd.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "multipathd.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "networkd-dispatcher.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "node_exporter.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "packagekit.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "plymouth-quit-wait.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "plymouth-quit.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "plymouth-read-write.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "polkit.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "rpcbind.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "rpcbind.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "rsyslog.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "serial-getty@ttyS0.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "setvtrgb.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "snap.lxd.daemon.unix.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "snap.lxd.user-daemon.unix.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "snapd.apparmor.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "snapd.seeded.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "snapd.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "snapd.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "ssh.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "syslog.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-binfmt.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-fsck-root.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-fsck@dev-disk-by\\x2dlabel-UEFI.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-fsckd.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-initctl.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-journal-flush.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-journald-audit.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-journald-dev-log.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-journald.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-journald.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-logind.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-machine-id-commit.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-modules-load.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-networkd-wait-online.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-networkd.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-networkd.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-random-seed.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-remount-fs.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-resolved.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-rfkill.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-sysctl.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-sysusers.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-timedated.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-timesyncd.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-tmpfiles-setup-dev.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-tmpfiles-setup.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-udev-trigger.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-udevd-control.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-udevd-kernel.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-udevd.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-update-utmp.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "systemd-user-sessions.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "telnet.socket",
+        "tipo": "socket",
+        "estado": "active"
+      },
+      {
+        "nome": "ufw.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "unattended-upgrades.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "user-runtime-dir@1000.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "user@1000.service",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "uuidd.socket",
+        "tipo": "socket",
+        "estado": "active"
+      }
+    ],
+    "swap": {
+      "habilitado": true,
+      "tamanho": "512M"
+    },
+    "portas_em_escuta": [
+      {
+        "porta": 22,
+        "bind": "0.0.0.0",
+        "processo": "sshd"
+      },
+      {
+        "porta": 22,
+        "bind": "::",
+        "processo": "sshd"
+      },
+      {
+        "porta": 23,
+        "bind": "*",
+        "processo": "systemd"
+      },
+      {
+        "porta": 53,
+        "bind": "127.0.0.53",
+        "processo": "systemd-resolve"
+      },
+      {
+        "porta": 111,
+        "bind": "0.0.0.0",
+        "processo": "rpcbind"
+      },
+      {
+        "porta": 111,
+        "bind": "::",
+        "processo": "rpcbind"
+      },
+      {
+        "porta": 9100,
+        "bind": "*",
+        "processo": "node_exporter"
+      },
+      {
+        "porta": 34449,
+        "bind": "127.0.0.1",
+        "processo": "containerd"
+      }
+    ],
+    "chaves_ssh": [
+      {
+        "conta": "auditor",
+        "tipo": "ssh-ed25519",
+        "identificacao": "dozer@notebook"
+      },
+      {
+        "conta": "auditor",
+        "tipo": "ssh-ed25519",
+        "identificacao": "platform@metacortex-platform"
+      }
+    ],
+    "ssh": {
+      "login_de_root": true,
+      "permitrootlogin": "yes"
+    },
+    "ntp": {
+      "sincronizado": true,
+      "mecanismo": "systemd-timesyncd"
+    }
+  },
+  "conformidade": [
+    {
+      "regra": "so.distribuicao",
+      "esperado": "ubuntu",
+      "encontrado": "ubuntu",
+      "veredito": "conforme"
+    },
+    {
+      "regra": "so.versao_minima",
+      "esperado": "22.04",
+      "encontrado": "22.04.5",
+      "veredito": "conforme"
+    },
+    {
+      "regra": "kernel.versao_minima",
+      "esperado": "6.5",
+      "encontrado": "5.15.0-198-generic",
+      "veredito": "desvio",
+      "severidade": "medio"
+    },
+    {
+      "regra": "servicos.ativos",
+      "esperado": [
+        "ssh",
+        "containerd",
+        "node_exporter",
+        "chrony"
+      ],
+      "encontrado": {
+        "ausentes": [
+          "chrony"
+        ]
+      },
+      "veredito": "desvio",
+      "severidade": "alto"
+    },
+    {
+      "regra": "servicos.proibidos",
+      "esperado": [
+        "telnet.socket",
+        "rpcbind.socket"
+      ],
+      "encontrado": {
+        "ativos": [
+          "rpcbind.socket",
+          "telnet.socket"
+        ]
+      },
+      "veredito": "desvio",
+      "severidade": "alto"
+    },
+    {
+      "regra": "swap.habilitado",
+      "esperado": false,
+      "encontrado": "true (512M)",
+      "veredito": "desvio",
+      "severidade": "critico"
+    },
+    {
+      "regra": "portas_em_escuta.publicas_permitidas",
+      "esperado": [
+        22
+      ],
+      "encontrado": {
+        "nao_permitidas": [
+          {
+            "porta": 23,
+            "bind": "*",
+            "processo": "systemd"
+          },
+          {
+            "porta": 111,
+            "bind": "0.0.0.0",
+            "processo": "rpcbind"
+          },
+          {
+            "porta": 111,
+            "bind": "::",
+            "processo": "rpcbind"
+          }
+        ]
+      },
+      "veredito": "desvio",
+      "severidade": "critico"
+    },
+    {
+      "regra": "portas_em_escuta.somente_rede_interna",
+      "esperado": [
+        9100
+      ],
+      "encontrado": [
+        "9100 em *"
+      ],
+      "veredito": "desvio",
+      "severidade": "critico"
+    },
+    {
+      "regra": "chaves_ssh.emitidas_por",
+      "esperado": "metacortex-platform",
+      "encontrado": {
+        "nao_emitidas": [
+          "auditor: dozer@notebook"
+        ]
+      },
+      "veredito": "desvio",
+      "severidade": "critico"
+    },
+    {
+      "regra": "ssh.login_de_root",
+      "esperado": false,
+      "encontrado": "true (yes)",
+      "veredito": "desvio",
+      "severidade": "alto"
+    },
+    {
+      "regra": "ntp.sincronizado",
+      "esperado": true,
+      "encontrado": true,
+      "veredito": "conforme"
+    }
+  ],
+  "resumo": {
+    "conforme": 3,
+    "desvio": 8,
+    "nao_verificado": 0,
+    "por_severidade": {
+      "critico": 4,
+      "alto": 3,
+      "medio": 1
+    }
+  }
+}

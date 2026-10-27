@@ -1,0 +1,7 @@
+# Unica exclusao do scan. KSV-01010 marca qualquer valor de 3 a 20 digitos em
+# ConfigMap como "passaporte" (configmap_with_sensitive.rego), entao
+# HTTP_PORT: "8080" vira achado. A regra 3.3 para ConfigMap continua coberta
+# por confere.py (chave sensivel e URL com credencial).
+misconfigurations:
+  - id: KSV-01010
+    statement: falso positivo com porta numerica em ConfigMap; 3.3 coberta por confere.py

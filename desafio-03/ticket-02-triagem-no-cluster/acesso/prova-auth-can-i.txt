@@ -1,0 +1,10 @@
+get pods                                      yes
+list events                                   yes
+get pods --subresource=log                    yes
+get endpointslices.discovery.k8s.io           yes
+get secrets                                   no
+delete pods                                   no
+patch deployments                             no
+create deployments                            no
+update deployments --subresource=scale        no
+create pods --subresource=exec                no
