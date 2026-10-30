@@ -62,7 +62,8 @@ GitHub Actions.
 
 ## CI
 
-`.github/workflows/manifests.yml` roda dois jobs:
+[`../../.github/workflows/manifests.yml`](../../.github/workflows/manifests.yml)
+roda dois jobs:
 
 - **padrao**: testes, verificador e Trivy;
 - **admissao**: sobe um kind e faz `--dry-run=server` dos manifests. Pega o que

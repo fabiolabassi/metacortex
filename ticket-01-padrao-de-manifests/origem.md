@@ -10,7 +10,7 @@ foram escritos com as ferramentas de edição do agente, sem gerador de skill.
 A skill não foi escrita de cabeça. Ela saiu de três rodadas de trabalho, nesta
 ordem.
 
-### 1. Trabalho manual com o agente (`trabalho-anterior/`)
+### 1. Implementação inicial (`referencia/`)
 
 Antes da skill, o padrão foi aplicado à mão com o agente:
 
@@ -19,7 +19,7 @@ Antes da skill, o padrão foi aplicado à mão com o agente:
 - um laboratório em kind que reproduz o que o padrão promete e não entrega.
 
 Desse trabalho saíram nove achados sobre o próprio padrão
-(`trabalho-anterior/docs/revisao-do-padrao.md`). Os mais importantes viraram
+(`referencia/docs/revisao-do-padrao.md`). Os mais importantes viraram
 instrução da skill:
 
 - a 3.2 colada no nível do Pod é recusada pelo apiserver;

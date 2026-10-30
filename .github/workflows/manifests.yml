@@ -11,7 +11,7 @@ permissions:
 # The original manifests work and its skill live under ticket-01-padrao-de-manifests.
 defaults:
   run:
-    working-directory: ticket-01-padrao-de-manifests/trabalho-anterior
+    working-directory: ticket-01-padrao-de-manifests/referencia
 
 jobs:
   padrao:

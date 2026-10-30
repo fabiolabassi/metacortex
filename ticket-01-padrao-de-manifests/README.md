@@ -50,11 +50,11 @@ python3 -m unittest discover -s tests -v
 
 Códigos de saída: 0 sem erro, 1 com erro de padrão, 2 em erro de uso.
 
-## Trabalho anterior
+## Implementação de referência
 
-[`trabalho-anterior/`](trabalho-anterior/) é a primeira entrega: manifests de
+[`referencia/`](referencia/) contém a implementação inicial: manifests de
 referência do nyx, o verificador original, o laboratório em kind e a revisão
 do padrão com nove achados. É o fluxo de onde a skill nasceu (ver
-[`origem.md`](origem.md)), e foi mantido como evidência. A CI
-(`.github/workflows/manifests.yml`) continua rodando sobre ele e, agora,
-também os testes do script da skill.
+[`origem.md`](origem.md)), mantido como referência e evidência. A CI
+([workflow de manifests](../.github/workflows/manifests.yml)) valida esse
+conteúdo e os testes do script da skill.

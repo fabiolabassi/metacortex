@@ -80,8 +80,8 @@ execuções de conferência abriram `regras.md` uma vez, para montar a tabela.
 | **Bloco 4 inteiro** (vocabulário: Pod, ReplicaSet, Deployment, Service, port × targetPort, Endpoints, ConfigMap, probes) | Existe para quem está chegando na plataforma, e o modelo já sabe isso. Cada linha custaria contexto em toda execução sem mudar nenhuma decisão. O único ponto do bloco que muda conduta (Endpoints descontinuado, campo ausente) foi para a skill de triagem, que é onde ele importa |
 | **Justificativas narrativas das regras** ("cada regra nasceu de um incidente", "o plantão agradece") | Não mudam o que o agente faz. A regra fica, a história sai |
 | **Histórico de revisões do wiki** | Só a versão vigente importa para conferir |
-| **Processo de exceção** (`excecao.metacortex.io/<regra>` com validade, do trabalho anterior) | É processo de PR, não regra de manifesto, e foi uma proposta minha, não está no padrão. Empacotar daria ao agente um jeito de "aprovar" exceção sozinho. A skill só diz que AVISO vira justificativa escrita |
-| **Os nove achados da revisão do padrão como texto** | Viraram uma coluna "armadilha" de uma linha em `regras.md`. A evidência completa continua em `trabalho-anterior/docs/` |
+| **Processo de exceção** (`excecao.metacortex.io/<regra>` com validade, da implementação inicial) | É processo de PR, não regra de manifesto, e foi uma proposta minha, não está no padrão. Empacotar daria ao agente um jeito de "aprovar" exceção sozinho. A skill só diz que AVISO vira justificativa escrita |
+| **Os nove achados da revisão do padrão como texto** | Viraram uma coluna "armadilha" de uma linha em `regras.md`. A evidência completa continua em `referencia/docs/` |
 | **`kubectl apply --dry-run=server`** | Útil (pega Pod Security e schema), mas exige cluster e encosta no apiserver. Fica na CI, não na skill |
 | **Laboratório kind** | Evidência para a revisão do padrão, não método de conferência |
 
@@ -122,7 +122,7 @@ Duas observações honestas sobre as execuções:
 - **v1 da conferência:** YAML com âncora entre documentos (inválido), correção
   não conferida, UID "não verificado". Corrigido na v2. O detalhe está em `origem.md`.
 - **Custo do modo escrita:** US$ 1,09 e 3 min, com 42 turnos, dos quais ~10
-  gastos lendo o `trabalho-anterior/` para copiar o estilo de owner e runbook.
+  gastos lendo a `referencia/` para copiar o estilo de owner e runbook.
   Faria diferente: pôr `owner`/`runbook` como pergunta explícita ao usuário,
   em vez de deixar o agente procurar convenção no repositório.
 - **O script não pega "variável que a app não lê"** (`DATABASE_URL` no kube-news).

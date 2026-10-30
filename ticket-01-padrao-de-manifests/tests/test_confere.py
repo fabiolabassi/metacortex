@@ -9,7 +9,7 @@ AQUI = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(AQUI / "skill" / "padrao-de-manifests" / "scripts"))
 import confere  # noqa: E402
 
-REPROVADOS = AQUI / "trabalho-anterior" / "exemplos" / "reprovados"
+REPROVADOS = AQUI / "referencia" / "exemplos" / "reprovados"
 
 
 def regras_com_erro(alvo):
@@ -25,7 +25,7 @@ class TestConfere(unittest.TestCase):
                 self.assertEqual(regras_com_erro(arq), espera)
 
     def test_referencia_passa(self):
-        self.assertEqual(regras_com_erro(AQUI / "trabalho-anterior" / "manifests"), set())
+        self.assertEqual(regras_com_erro(AQUI / "referencia" / "manifests"), set())
 
     def test_barrado_do_nyx(self):
         alvo = AQUI / "execucoes" / "conferencia-nyx-barrado" / "nyx-api-barrado.yaml"
