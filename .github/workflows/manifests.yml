@@ -60,6 +60,6 @@ jobs:
         with:
           cluster_name: metacortex-ci
       - name: Namespaces
-        run: for ns in ticket-01-padrao-de-manifests/trabalho-anterior/manifests/*/00-namespace.yaml; do kubectl apply -f "$ns"; done
+        run: for ns in manifests/*/00-namespace.yaml; do kubectl apply -f "$ns"; done
       - name: Dry-run do lado do servidor
-        run: kubectl apply --dry-run=server -R -f ticket-01-padrao-de-manifests/trabalho-anterior/manifests/
+        run: kubectl apply --dry-run=server -R -f manifests/
