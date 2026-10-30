@@ -1,0 +1,7 @@
+# Dados passados ao Trivy com --config-data. A regra KSV-0125 le
+# data.ksv0125.trusted_registries e, quando a lista nao esta vazia, usa ela no
+# lugar da lista padrao (ACR, ECR e GCR). E assim que a 3.7 deixa de brigar
+# com o scan: o registry do parque passa a ser o unico confiavel.
+ksv0125:
+  trusted_registries:
+    - registry.metacortex.io

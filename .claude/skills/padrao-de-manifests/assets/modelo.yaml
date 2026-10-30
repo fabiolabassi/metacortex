@@ -1,0 +1,148 @@
+# Modelo de partida: atende tudo que confere.py e o Trivy conferem.
+# Troque <cliente>, <amb>, <comp>, <img>, <tag>, <porta> e revise cada TODO
+# lendo o projeto. Separe em um arquivo por objeto ao gerar.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: <cliente>-<amb>
+  labels:
+    app.kubernetes.io/name: <cliente>-<amb>
+    app.kubernetes.io/instance: <cliente>-<amb>
+    app.kubernetes.io/part-of: <cliente>
+    app.kubernetes.io/managed-by: platform
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    metacortex.io/owner: <time>
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: <cliente>-<comp>
+  namespace: <cliente>-<amb>
+  labels:
+    app.kubernetes.io/name: <cliente>-<comp>
+    app.kubernetes.io/instance: <cliente>-<amb>
+    app.kubernetes.io/part-of: <cliente>
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: <time>
+automountServiceAccountToken: false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <cliente>-<comp>
+  namespace: <cliente>-<amb>
+  labels:
+    app.kubernetes.io/name: <cliente>-<comp>
+    app.kubernetes.io/instance: <cliente>-<amb>
+    app.kubernetes.io/part-of: <cliente>
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: <time>
+    metacortex.io/runbook: https://runbooks.metacortex.io/<cliente>/<comp>
+spec:
+  replicas: 2                      # prod: >= 2 (2.3); dev/stg: 1 aceito
+  revisionHistoryLimit: 5
+  strategy:                        # 2.4 (obrigatório em prod)
+    type: RollingUpdate
+    rollingUpdate: {maxUnavailable: 0, maxSurge: 1}
+  selector:
+    matchLabels:                   # só rótulos imutáveis (1.4)
+      app.kubernetes.io/name: <cliente>-<comp>
+      app.kubernetes.io/instance: <cliente>-<amb>
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: <cliente>-<comp>
+        app.kubernetes.io/instance: <cliente>-<amb>
+        app.kubernetes.io/part-of: <cliente>
+        app.kubernetes.io/managed-by: platform
+    spec:
+      serviceAccountName: <cliente>-<comp>
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30   # TODO 2.6: a app trata SIGTERM?
+      securityContext:                    # nível de POD
+        runAsNonRoot: true
+        runAsUser: 10001                  # TODO: compatível com o USER da imagem?
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile: {type: RuntimeDefault}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: <cliente>-<comp>
+              app.kubernetes.io/instance: <cliente>-<amb>
+      containers:
+        - name: <comp>
+          image: registry.metacortex.io/<cliente>/<img>:<tag>
+          ports:
+            - {name: http, containerPort: <porta>}
+          envFrom:
+            - configMapRef: {name: <cliente>-<comp>}
+          env:
+            - name: DB_PASSWORD           # TODO: nome que a app lê
+              valueFrom:
+                secretKeyRef: {name: <cliente>-db, key: password}
+          resources:                      # TODO 2.1: ajustar por medição
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: 500m, memory: 256Mi}
+          readinessProbe:                 # TODO 2.2: endpoint que existe
+            httpGet: {path: /ready, port: http}
+            periodSeconds: 10
+          livenessProbe:                  # não pode depender do banco
+            httpGet: {path: /health, port: http}
+            periodSeconds: 20
+            failureThreshold: 3
+          securityContext:                # nível de CONTAINER
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+            capabilities: {drop: ["ALL"]}
+          volumeMounts:
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - name: tmp
+          emptyDir: {sizeLimit: 64Mi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: <cliente>-<comp>
+  namespace: <cliente>-<amb>
+  labels:
+    app.kubernetes.io/name: <cliente>-<comp>
+    app.kubernetes.io/instance: <cliente>-<amb>
+    app.kubernetes.io/part-of: <cliente>
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: <time>
+spec:
+  type: ClusterIP
+  selector:                         # idêntico ao matchLabels
+    app.kubernetes.io/name: <cliente>-<comp>
+    app.kubernetes.io/instance: <cliente>-<amb>
+  ports:
+    - {name: http, port: 80, targetPort: http}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget             # prod com > 1 réplica (2.5)
+metadata:
+  name: <cliente>-<comp>
+  namespace: <cliente>-<amb>
+  labels:
+    app.kubernetes.io/name: <cliente>-<comp>
+    app.kubernetes.io/instance: <cliente>-<amb>
+    app.kubernetes.io/part-of: <cliente>
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: <time>
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: <cliente>-<comp>
+      app.kubernetes.io/instance: <cliente>-<amb>
