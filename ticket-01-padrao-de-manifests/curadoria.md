@@ -81,7 +81,7 @@ execuções de conferência abriram `regras.md` uma vez, para montar a tabela.
 | **Justificativas narrativas das regras** ("cada regra nasceu de um incidente", "o plantão agradece") | Não mudam o que o agente faz. A regra fica, a história sai |
 | **Histórico de revisões do wiki** | Só a versão vigente importa para conferir |
 | **Processo de exceção** (`excecao.metacortex.io/<regra>` com validade, da implementação inicial) | É processo de PR, não regra de manifesto, e foi uma proposta minha, não está no padrão. Empacotar daria ao agente um jeito de "aprovar" exceção sozinho. A skill só diz que AVISO vira justificativa escrita |
-| **Os nove achados da revisão do padrão como texto** | Viraram uma coluna "armadilha" de uma linha em `regras.md`. A evidência completa continua em `referencia/docs/` |
+| **Auditoria independente do padrão** | Não faz parte do pedido; as armadilhas que afetam a conferência foram mantidas em `skill/padrao-de-manifests/references/regras.md` |
 | **`kubectl apply --dry-run=server`** | Útil (pega Pod Security e schema), mas exige cluster e encosta no apiserver. Fica na CI, não na skill |
 | **Laboratório kind** | Evidência para a revisão do padrão, não método de conferência |
 

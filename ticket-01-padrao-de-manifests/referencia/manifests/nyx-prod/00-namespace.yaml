@@ -1,8 +1,5 @@
 # 1.2 — namespace no formato <cliente>-<ambiente>.
-# Pod Security "restricted" faz o proprio cluster recusar o que o Bloco 3
-# proibe (root, privileged, hostNetwork/hostPID, capabilities extras).
-# Atencao: a recusa acontece na criacao do Pod, nao do Deployment — ver
-# docs/revisao-do-padrao.md, achado 4.
+# Pod Security restricted aplica as regras do Bloco 3 aos Pods do namespace.
 apiVersion: v1
 kind: Namespace
 metadata:

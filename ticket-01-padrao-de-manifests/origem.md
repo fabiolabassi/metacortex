@@ -10,22 +10,20 @@ foram escritos com as ferramentas de edição do agente, sem gerador de skill.
 A skill não foi escrita de cabeça. Ela saiu de três rodadas de trabalho, nesta
 ordem.
 
-### 1. Implementação inicial (`referencia/`)
+### 1. Implementação de referência (`referencia/`)
 
 Antes da skill, o padrão foi aplicado à mão com o agente:
 
 - manifests de referência do nyx em `nyx-prod` e `nyx-dev`;
 - um verificador (`check_padrao.py`) com teste negativo por regra;
-- um laboratório em kind que reproduz o que o padrão promete e não entrega.
+- exemplos que exercitam o verificador.
 
-Desse trabalho saíram nove achados sobre o próprio padrão
-(`referencia/docs/revisao-do-padrao.md`). Os mais importantes viraram
-instrução da skill:
+O verificador inicial repetia regras já cobertas pelo Trivy. Essa limitação
+orientou a separação da skill entre verificações próprias e instruções:
 
 - a 3.2 colada no nível do Pod é recusada pelo apiserver;
 - sem `seccompProfile`, o Pod Security `restricted` barra o pod;
-- o caso silencioso da 1.4 é o Service, não o Deployment;
-- o Trivy classifica regras obrigatórias como LOW.
+- o caso silencioso da 1.4 é o Service, não o Deployment.
 
 O que esse trabalho **não** fazia era separar o que o Trivy já cobria. O
 `check_padrao.py` reimplementava 2.1, 3.1, 3.2 e 3.6, todas cobertas pelo

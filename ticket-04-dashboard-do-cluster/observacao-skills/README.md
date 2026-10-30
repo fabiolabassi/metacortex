@@ -3,8 +3,8 @@
 As duas skills (Tickets 01 e 02) estavam instaladas como skills de projeto
 (`.claude/skills/`) durante todo o Ticket 04. Cada situação abaixo foi
 executada numa **sessão limpa** (`claude -p`), com o pedido escrito como
-naquele momento do projeto e **sem citar skill nenhuma**. A sessão bruta
-(`.jsonl`) e a resposta (`.md`) estão nesta pasta.
+naquele momento do projeto e **sem citar skill nenhuma**. As respostas
+registradas (`.md`) e a tabela abaixo preservam os resultados relevantes.
 
 ## O que aconteceu
 

@@ -12,8 +12,7 @@ etapa "2/4 padrao Metacortex sobre manifests/"
 python3 scripts/check_padrao.py manifests || falhou=1
 
 etapa "3/4 varredura de configuracao (Trivy, todas as severidades)"
-# LOW incluso de proposito: e onde o Trivy classifica falta de requests/limits
-# (2.1), capabilities.drop (3.2) e runAsUser (3.2). Ver revisao-do-padrao.md.
+# LOW incluso de proposito: e onde o Trivy classifica algumas regras do padrao.
 if command -v trivy >/dev/null; then
   trivy config --quiet --exit-code 1 \
     --severity LOW,MEDIUM,HIGH,CRITICAL \

@@ -5,8 +5,7 @@ Sessões limpas: `claude -p` com o texto do chamado
 **não** foi citada no pedido e disparou sozinha nas seis execuções.
 
 A saída completa de cada execução está em `execucoes/com-skill/chamado-N.md`
-(rep. 1) e `chamado-N.r2.md` (rep. 2). Cada ferramenta chamada está em
-`chamado-N.trilha.txt`, e a sessão bruta em `.jsonl`.
+(rep. 1) e `chamado-N.r2.md` (rep. 2).
 
 ## Resumo
 

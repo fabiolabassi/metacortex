@@ -15,13 +15,13 @@ instrução.
 | ↳ script | [`scripts/confere.py`](skill/padrao-de-manifests/scripts/confere.py), testado em [`tests/test_confere.py`](tests/test_confere.py) |
 | ↳ apoio sob demanda | [`references/`](skill/padrao-de-manifests/references/) (regras, escrita, trivy) e [`assets/`](skill/padrao-de-manifests/assets/) (modelo, config do Trivy) |
 | **A origem da skill** (fluxo, como foi produzida, ferramenta) | [`origem.md`](origem.md) |
-| **Saída real: modo escrita** (fake-shop, orion-prod) | [`execucoes/escrita-fake-shop/`](execucoes/escrita-fake-shop/): [`manifests/`](execucoes/escrita-fake-shop/manifests/), [`relatorio.md`](execucoes/escrita-fake-shop/relatorio.md), [`confere-saida.txt`](execucoes/escrita-fake-shop/confere-saida.txt), [`trilha.txt`](execucoes/escrita-fake-shop/trilha.txt) |
+| **Saída real: modo escrita** (fake-shop, orion-prod) | [`execucoes/escrita-fake-shop/`](execucoes/escrita-fake-shop/): [`manifests/`](execucoes/escrita-fake-shop/manifests/), [`relatorio.md`](execucoes/escrita-fake-shop/relatorio.md), [`confere-saida.txt`](execucoes/escrita-fake-shop/confere-saida.txt) |
 | **Saída real: conferência do manifesto barrado** | [`execucoes/conferencia-nyx-barrado/`](execucoes/conferencia-nyx-barrado/): entrada [`nyx-api-barrado.yaml`](execucoes/conferencia-nyx-barrado/nyx-api-barrado.yaml), saída do script [`confere-saida.txt`](execucoes/conferencia-nyx-barrado/confere-saida.txt), relatório [`v1`](execucoes/conferencia-nyx-barrado/v1/relatorio.md) e [`v2`](execucoes/conferencia-nyx-barrado/v2/relatorio.md), YAML corrigido [`v2/nyx-api-corrigido.yaml`](execucoes/conferencia-nyx-barrado/v2/nyx-api-corrigido.yaml) |
 | **Curadoria** (script × instrução por regra, o que o Trivy cobria, corpo × sob demanda, o que ficou de fora, permissões) | [`curadoria.md`](curadoria.md) |
 
-Cada pasta de execução tem a sessão completa (`sessao.jsonl`, do
-`claude -p --output-format stream-json`) e um resumo dela (`trilha.txt`), com a
-skill que disparou, cada ferramenta chamada, tokens, custo e tempo.
+Os relatórios registram os resultados das execuções, inclusive a saída ruim
+da primeira conferência e a correção feita depois. Os tempos e custos estão
+resumidos acima.
 
 ## Resumo das execuções
 
@@ -52,9 +52,9 @@ Códigos de saída: 0 sem erro, 1 com erro de padrão, 2 em erro de uso.
 
 ## Implementação de referência
 
-[`referencia/`](referencia/) contém a implementação inicial: manifests de
-referência do nyx, o verificador original, o laboratório em kind e a revisão
-do padrão com nove achados. É o fluxo de onde a skill nasceu (ver
-[`origem.md`](origem.md)), mantido como referência e evidência. A CI
+[`referencia/`](referencia/) contém a solução inicial do fluxo: manifests do
+nyx, o verificador original e seus casos de teste. A skill foi extraída desse
+trabalho (ver [`origem.md`](origem.md)); o diretório não é uma entrega
+adicional. A CI
 ([workflow de manifests](../.github/workflows/manifests.yml)) valida esse
 conteúdo e os testes do script da skill.

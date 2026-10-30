@@ -35,7 +35,7 @@ primeira é a única que o enunciado pede, e ela **não basta**.
 | 1 | `ALLOW_ONLY_NON_DESTRUCTIVE_TOOLS=true` (enunciado) | só `delete`, `exec`, `generic`, `node_management`, `cleanup`, `uninstall`. **Ainda expõe `kubectl_apply`, `kubectl_create`, `kubectl_patch`, `kubectl_scale`, `kubectl_rollout`, `install_helm_chart`, `upgrade_helm_chart`, `port_forward`** | [`acesso/prova-tools-list.txt`](acesso/prova-tools-list.txt), segunda linha |
 | 2 | `ALLOWED_TOOLS=kubectl_get,kubectl_describe,kubectl_logs,explain_resource,list_api_resources,ping` no servidor (prevalece sobre os outros modos, `src/index.ts`) | o servidor só **expõe** essas 6 ferramentas | [`acesso/prova-tools-list.txt`](acesso/prova-tools-list.txt), primeira linha |
 | 3 | `KUBECONFIG` próprio, com a ServiceAccount `triagem-leitura` ligada ao ClusterRole `view` | o **apiserver** recusa qualquer escrita, inclusive se as camadas 1 e 2 falharem ou se alguém usar `kubectl` pelo shell com esse kubeconfig. `view` também não lê Secrets | [`acesso/rbac-triagem-leitura.yaml`](acesso/rbac-triagem-leitura.yaml), [`acesso/prova-auth-can-i.txt`](acesso/prova-auth-can-i.txt) |
-| 4 | `.claude/settings.json` do projeto: `deny` para as 18 ferramentas de escrita do servidor; `allowed-tools` da skill só com as 6 de leitura | o **Claude Code** recusa a chamada antes de ela sair | [`/.claude/settings.json`](../../.claude/settings.json) |
+| 4 | `.claude/settings.json` do projeto: `deny` para as 18 ferramentas de escrita do servidor; `allowed-tools` da skill só com as 6 de leitura | o **Claude Code** recusa a chamada antes de ela sair | [`.claude/settings.json`](../.claude/settings.json) |
 
 Mais duas medidas:
 
@@ -43,9 +43,9 @@ Mais duas medidas:
   verificado: exigiria <ação>" o que só se confirmaria com escrita. No
   chamado 3, nas duas repetições, "testar a chamada de fora" apareceu assim,
   como "não verificado", porque exigiria port-forward ou exec.
-- **Execuções sem shell:** as sessões gravadas rodaram com `Bash`, `Write` e
-  `Edit` em `--disallowedTools`. Nenhuma das 12 triagens chamou ferramenta de
-  escrita. A contagem por ferramenta está nas `*.trilha.txt`.
+- **Execuções sem shell:** as sessões de comparação rodaram com `Bash`,
+  `Write` e `Edit` em `--disallowedTools`. A proteção também está na
+  configuração do MCP, no `ALLOWED_TOOLS` e no `deny` do Claude Code.
 
 O servidor está fixado na versão **4.1.9** (de 2026-10-02). A 4.2.1 tinha sido
 publicada no mesmo dia do trabalho. Fixar uma versão de semanas atrás reduz

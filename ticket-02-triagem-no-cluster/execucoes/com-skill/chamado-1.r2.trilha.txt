@@ -1,4 +1,4 @@
-sessao:      com-skill/chamado-1.r2.jsonl
+resultado:   chamado-1.r2.md
 modelo:      claude-opus-5-5
 skills:      triagem-de-cluster
 tempo:       31.3s

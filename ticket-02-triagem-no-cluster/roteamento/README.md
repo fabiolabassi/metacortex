@@ -7,7 +7,7 @@
   escolhe só pela `description` de cada uma.
 - Mesmo ambiente das triagens: MCP só de leitura. `Bash`, `Write` e `Edit` foram
   bloqueados para a frase não agir de verdade, porque o objetivo é medir rota.
-- Script: [`roda-matriz.sh`](roda-matriz.sh). Sessões brutas em `rodada-N/NN.jsonl`.
+- Script: [`roda-matriz.sh`](roda-matriz.sh). Os resultados resumidos de cada rodada ficam em `rodada-N/resultado.md`.
 - "Skill disparada" = a primeira chamada à ferramenta `Skill`, ou "nenhuma".
 
 ## Rodada 1 (skills v1)

@@ -1,4 +1,4 @@
-sessao:      sem-skill/chamado-3.r2.jsonl
+resultado:   chamado-3.r2.md
 modelo:      claude-opus-5-5
 skills:      nenhuma
 tempo:       24.1s

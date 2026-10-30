@@ -12,9 +12,5 @@ Cada pasta tem um `README.md` que aponta onde está cada item do "Entregue".
 **Agente:** Claude Code 2.1.311. **Modelo:** Claude Opus 5.5 (`claude-opus-5-5`)
 em todas as etapas e em todas as sessões de execução (`claude -p`).
 
-As skills ficam instaladas como skills de projeto em `/.claude/skills/` (links
-para as pastas dos tickets). O MCP de triagem está em `/.mcp.json`, e os
-bloqueios de escrita em `/.claude/settings.json`.
-
-Utilitário comum: [`ferramentas/resumo-sessao.py`](ferramentas/resumo-sessao.py)
-resume uma sessão gravada (skill disparada, ferramentas, tokens, custo, tempo).
+As skills ficam instaladas em `/.claude/skills/`. O MCP de triagem está em
+`/.mcp.json`, e os bloqueios de escrita em `/.claude/settings.json`.

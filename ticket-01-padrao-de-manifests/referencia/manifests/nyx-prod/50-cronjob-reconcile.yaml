@@ -4,11 +4,7 @@
 # cria (jobTemplate.metadata) e no Pod (template.metadata). Faltando no
 # jobTemplate, o Job criado as 3h nao responde "quem e o dono disso?".
 #
-# 2.2 — o padrao exige as duas probes "em qualquer ambiente" e nao abre
-# excecao para batch. Aqui elas existem e cada uma faz sentido proprio:
-# liveness pega a conciliacao travada; readiness nao tira trafego de ninguem
-# (Job nao esta atras de Service) e so existe para cumprir a regra. Ver
-# docs/revisao-do-padrao.md, achado 5.
+# 2.2 — probes são obrigatórias em qualquer ambiente, inclusive para batch.
 apiVersion: batch/v1
 kind: CronJob
 metadata:
