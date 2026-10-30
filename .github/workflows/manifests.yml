@@ -1,0 +1,65 @@
+name: manifests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# The original manifests work and its skill live under ticket-01-padrao-de-manifests.
+defaults:
+  run:
+    working-directory: ticket-01-padrao-de-manifests/trabalho-anterior
+
+jobs:
+  padrao:
+    name: Padrao de Manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar PyYAML
+        run: pip install --quiet pyyaml==6.0.2
+
+      - name: Testes do verificador
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Padrao Metacortex
+        run: python3 scripts/check_padrao.py --github manifests
+
+      - name: Instalar Trivy
+        uses: aquasecurity/setup-trivy@81e514348e19b6112ce2a7e3ecbafe19c1e1f567
+        with:
+          version: v0.74.0
+
+      - name: Trivy config
+        run: |
+          trivy config --exit-code 1 \
+            --severity LOW,MEDIUM,HIGH,CRITICAL \
+            --config .trivy/trivy.yaml \
+            --ignorefile .trivyignore.yaml \
+            manifests
+
+      - name: Testes do script da skill
+        working-directory: ticket-01-padrao-de-manifests
+        run: python3 -m unittest discover -s tests -v
+
+  admissao:
+    name: Admissao em cluster (kind)
+    runs-on: ubuntu-latest
+    needs: padrao
+    steps:
+      - uses: actions/checkout@v4
+      - uses: helm/kind-action@v1
+        with:
+          cluster_name: metacortex-ci
+      - name: Namespaces
+        run: for ns in ticket-01-padrao-de-manifests/trabalho-anterior/manifests/*/00-namespace.yaml; do kubectl apply -f "$ns"; done
+      - name: Dry-run do lado do servidor
+        run: kubectl apply --dry-run=server -R -f ticket-01-padrao-de-manifests/trabalho-anterior/manifests/
